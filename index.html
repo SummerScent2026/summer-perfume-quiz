@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>如果你是一支夏日香水</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400&family=Noto+Sans+SC:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#FAF7F2;--ink:#1C1917;--ink-s:#44403C;--ink-m:#78716C;--ink-f:#A8A29E;
+  --border:rgba(28,25,23,0.12);--border-s:rgba(28,25,23,0.07);
+  --a:#7BA7BC;--b:#D4859A;--c:#7EB89A;--d:#C4976A;
+  --ff-serif:'Noto Serif SC','Cormorant Garamond',serif;
+  --ff-sans:'Noto Sans SC',sans-serif;
+  --ease:0.25s cubic-bezier(.4,0,.2,1);
+  /* 默认初始状态（封面和题目页使用原本的米白和深色） */
+  --bg-current: #FAF7F2;
+  --ink-current: #1C1917;
+  --ink-s-current: #44403C;
+  --ink-m-current: #78716C;
+  --ink-f-current: #A8A29E;
+  --border-current: rgba(28,25,23,0.12);
+}
+
+/* 让 body 的背景和颜色跟随当前动态变量 */
+body {
+  background: var(--bg-current);
+  color: var(--ink-current);
+  font-family: var(--ff-sans);
+  font-weight: 300;
+  min-height: 100dvh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  transition: background var(--ease), color var(--ease); /* 让换色时有丝滑的过渡动画 */
+}
+html{-webkit-tap-highlight-color:transparent}
+.container{width:100%;max-width:560px;padding:0 22px 72px}
+.screen{display:none}.screen.active{display:block}
+
+/* COVER */
+.cover{padding-top:clamp(48px,14vw,88px);min-height:100dvh;display:flex;flex-direction:column}
+.eyebrow{font-size:10px;letter-spacing:.2em;color:var(--ink-f);text-transform:uppercase;margin-bottom:2rem}
+.cover-title{font-family:var(--ff-serif);font-size:clamp(34px,9.5vw,52px);font-weight:300;line-height:1.3;letter-spacing:.03em;margin-bottom:1rem}
+/* 调整了没有香水瓶后的间距，保持视觉美观 */
+.cover-sub{font-size:13px;color:var(--ink-m);line-height:2;margin-bottom:clamp(3.5rem,12vw,6rem);font-weight:300;max-width:300px}
+.bottles{display:none} /* 隐藏香水瓶展示区域 */
+.btn-start{display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:var(--cream);border:none;padding:14px 30px;border-radius:2px;font-size:13px;font-family:var(--ff-sans);font-weight:400;cursor:pointer;letter-spacing:.1em;transition:opacity var(--ease);-webkit-appearance:none}
+.btn-start:active{opacity:.7}
+.cover-foot{margin-top:auto;padding-top:3rem;font-size:11px;color:var(--ink-f);letter-spacing:.07em}
+
+/* TRANS */
+.trans-page {
+  padding-top: 0;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;   /* 上下居中 */
+  align-items: center;       /* 左右居中 */
+  text-align: center;        /* 文字居中 */
+}
+#trans-eyebrow {
+  font-family: 'Source Sans Pro', 'Noto Sans SC', sans-serif; /* 思源黑体/现代无衬线体 */
+  font-size: 13px;                       /* 字号从 10px 放大到 13px */
+  font-weight: 300;                      /* 加粗一点更清晰 */
+  letter-spacing: .2em;                  /* 字间距 */
+  color: var(--ink-f);                   /* 字体颜色 */
+  text-transform: uppercase;
+  margin-bottom: 2rem;                   /* 距离大标题的间距 */
+}
+.trans-title {
+  font-family: 'Source Serif Pro', 'Noto Serif SC', serif; /* 强制指定为思源宋体/衬线体 */
+  font-size: clamp(28px, 8vw, 38px);     /* 缩小了字号（原最大52px，现最大38px） */
+  font-weight: 400;                      /* 适当增加一点点粗细，让宋体更易读 */
+  line-height: 1.4;
+  letter-spacing: .05em;
+  margin-bottom: 2.5rem;                 /* 【核心修改】增大了标题与下方导语的间距（从1.5rem增大到2.5rem） */
+}
+.trans-sub {
+  font-family: 'Source Sans Pro', 'Noto Sans SC', sans-serif; /* 强制指定为思源黑体/无衬线体 */
+  font-size: 14px;                       /* 字号从 13px 放大到 15px */
+  color: var(--ink-m);                   /* 导语颜色稍微加深，提升清晰度 */
+  line-height: 2.2;                      /* 稍微拉开行高，更具呼吸感 */
+  margin-bottom: clamp(3.5rem, 12vw, 5rem); /* 距离下方按钮的距离 */
+  font-weight: 300;                      
+  max-width: 340px;                      /* 略微加宽文本框，配合大字号排版 */
+  margin-left: auto;
+  margin-right: auto;
+}
+.btn-trans-next {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--ink);
+  color: var(--cream);
+  border: none;
+  padding: 14px 30px;
+  border-radius: 2px;
+  font-size: 13px;
+  font-family: 'Source Sans Pro', 'Noto Sans SC', sans-serif;
+  font-weight: 400;
+  cursor: pointer;
+  letter-spacing: .1em;
+  transition: opacity var(--ease);
+  -webkit-appearance: none;
+  width: fit-content;
+}
+.btn-trans-next:active { opacity: .7; }
+
+/* QUIZ */
+.quiz{padding-top:clamp(36px,9vw,60px)}
+.quiz-meta{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem}
+.q-part{font-size:10px;letter-spacing:.18em;color:var(--ink-f);text-transform:uppercase}
+.q-count{font-size:11px;color:var(--ink-f);font-feature-settings:"tnum"}
+.progress{height:1px;background:var(--border-s);margin-bottom:2.5rem;position:relative}
+.progress-fill{position:absolute;top:0;left:0;height:100%;background:var(--ink-f);transition:width .5s cubic-bezier(.4,0,.2,1)}
+.q-scene{font-size:10.5px;letter-spacing:.1em;color:var(--ink-f);font-style:italic;font-family:var(--ff-serif);margin-bottom:.5rem}
+.q-text{font-family:var(--ff-serif);font-size:clamp(16px,4.6vw,20px);font-weight:300;line-height:1.75;color:var(--ink);margin-bottom:.4rem}
+.q-note{font-size:10px;letter-spacing:.1em;color:var(--ink-f);margin-bottom:1.8rem;min-height:16px}
+.options{display:flex;flex-direction:column;gap:9px}
+.opt{display:flex;align-items:flex-start;gap:14px;padding:14px 16px;border:1px solid var(--border);border-radius:2px;background:transparent;cursor:pointer;text-align:left;width:100%;font-family:var(--ff-sans);transition:border-color var(--ease),background var(--ease);-webkit-appearance:none}
+.opt:active{background:rgba(28,25,23,.04)}
+.opt.selected{border-color:var(--ink-s);background:rgba(28,25,23,.025)}
+.opt-key{font-size:10px;color:var(--ink-f);letter-spacing:.1em;padding-top:2px;min-width:12px;flex-shrink:0}
+.opt-text{font-size:clamp(13px,3.7vw,14px);color:var(--ink-s);line-height:1.75;font-weight:300}
+.quiz-nav{display:flex;align-items:center;justify-content:space-between;margin-top:2rem}
+.btn-back{display:inline-flex;align-items:center;gap:5px;padding:10px 0;border:none;background:transparent;cursor:pointer;font-size:12px;font-family:var(--ff-sans);color:var(--ink-m);letter-spacing:.06em;transition:color var(--ease);-webkit-appearance:none}
+.btn-back:disabled{opacity:.25;cursor:default}
+.btn-back:not(:disabled):active{color:var(--ink)}
+.btn-next{display:inline-flex;align-items:center;gap:8px;padding:12px 26px;background:var(--ink);color:var(--cream);border:none;border-radius:2px;font-size:12px;font-family:var(--ff-sans);font-weight:400;letter-spacing:.1em;cursor:pointer;transition:opacity var(--ease);-webkit-appearance:none}
+.btn-next:disabled{opacity:.3;cursor:default}
+.btn-next:not(:disabled):active{opacity:.7}
+
+/* RESULT */
+.result{padding-top:clamp(44px,11vw,68px)}
+/* 【标题】 */
+.result-name {
+  font-family: var(--ff-serif);
+  font-size: clamp(28px, 8.5vw, 42px);
+  font-weight: 400; /* 适当给宋体加粗一档，更清晰 */
+  line-height: 1.3;
+  letter-spacing: .03em;
+  margin-bottom: .5rem;
+}
+/* 【辅助/次要文字】：Your Summer Scent / 标题下方小字 / 各种模块小标签 */
+.result .eyebrow,
+.result-tag,
+.result .sec-label,
+.item-dash {
+  color: var(--ink-m-current) !important;
+}
+.result-tag {
+  font-size: 12px;
+  letter-spacing: .08em;
+  margin-bottom: 2.5rem;
+  font-weight: 300;
+}
+.result .sec-label {
+  font-size: 10px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  margin-bottom: .8rem;
+}
+/* 【分割线】 */
+.result .divider {
+  height: 1px;
+  background: var(--border-current) !important; /* 动态绑定线条颜色 */
+  margin: 2rem 0;
+}
+/* 【正文区域】：分析描述 */
+.result-desc {
+  font-family: var(--ff-serif);
+  font-size: clamp(14px, 4vw, 16px);
+  line-height: 2.15;
+  color: var(--ink-s-current) !important; /* 动态绑定正文色 */
+  font-weight: 300;
+}
+.result-desc p { margin-bottom: 1rem; }
+.result-desc p:last-child { margin-bottom: 0; }
+/* 【正文区域】：你的气味像 */
+.scent-quote {
+  font-family: var(--ff-serif);
+  font-size: 13px;
+  font-style: italic;
+  color: var(--ink-s-current) !important; /* 修正：属于正文 */
+  line-height: 1.9;
+  padding-left: 1rem;
+  border-left: 1.5px solid var(--border-current) !important; /* 动态绑定线条颜色 */
+  font-weight: 300;
+}
+/* 【正文区域】：夏日关键词 */
+.keywords { display: flex; flex-wrap: wrap; gap: 7px; }
+.kw {
+  font-size: 11px;
+  letter-spacing: .06em;
+  color: var(--ink-s-current) !important; /* 修正：属于正文 */
+  padding: 5px 13px;
+  border: 1px solid var(--border-current) !important; /* 动态绑定线条颜色 */
+  border-radius: 20px;
+  font-weight: 300;
+}
+/* 【正文区域】：你的夏日随身物 */
+.items { display: flex; flex-direction: column; gap: 9px; }
+.item {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--ink-s-current) !important; /* 修正：属于正文 */
+  font-weight: 300;
+  line-height: 1.6;
+}
+.item-dash { flex-shrink: 0; font-size: 11px; }
+/* 结果页下方动作按钮（自动匹配肤色） */
+.result-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 2.5rem; }
+.result .btn-act {
+  flex: 1;
+  min-width: 120px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 13px 18px;
+  border: 1px solid var(--border-current) !important;
+  border-radius: 2px;
+  background: transparent;
+  font-size: 12px;
+  font-family: var(--ff-sans);
+  color: var(--ink-s-current) !important;
+  letter-spacing: .08em;
+  cursor: pointer;
+  transition: all var(--ease);
+  -webkit-appearance: none;
+}
+.result .btn-act.primary {
+  background: var(--ink-current) !important; /* 背景使用正文/字体色 */
+  color: var(--bg-current) !important;       /* 文字反白，使用结果背景色 */
+  border-color: transparent !important;
+}
+.result .btn-act.primary:active { opacity: .75; }
+
+/* THANKS */
+.thanks{padding-top:clamp(52px,15vw,88px);min-height:100dvh}
+.thanks-prose{font-family:var(--ff-serif);font-size:clamp(14px,4vw,16px);font-weight:300;line-height:2.2;color:var(--ink-s);margin-bottom:2.5rem}
+.thanks-prose p{margin-bottom:1.2rem}
+.thanks-italic{font-family:var(--ff-serif);font-style:italic;color:var(--ink-m);font-size:13px;line-height:2;margin-bottom:1.5rem;font-weight:300}
+.wish-input{width:100%;min-height:110px;padding:14px 16px;border:1px solid var(--border);border-radius:2px;background:transparent;font-size:14px;font-family:var(--ff-serif);color:var(--ink);line-height:1.8;resize:vertical;font-weight:300;outline:none;-webkit-appearance:none;appearance:none;transition:border-color var(--ease)}
+.wish-input::placeholder{color:var(--ink-f)}
+.wish-input:focus{border-color:var(--ink-s)}
+.btn-submit{margin-top:1rem;display:inline-flex;align-items:center;gap:8px;padding:13px 30px;background:var(--ink);color:var(--cream);border:none;border-radius:2px;font-size:12px;font-family:var(--ff-sans);font-weight:400;letter-spacing:.1em;cursor:pointer;-webkit-appearance:none;transition:opacity var(--ease)}
+.btn-submit:active{opacity:.7}
+
+/* DONE */
+.done{padding-top:clamp(52px,18vw,100px);min-height:100dvh;display:flex;flex-direction:column;justify-content:center}
+.done-prose{font-family:var(--ff-serif);font-size:clamp(15px,4.5vw,18px);font-weight:300;line-height:2.2;color:var(--ink-s)}
+.done-prose p{margin-bottom:1rem}
+
+/* FADE */
+.fade-up{animation:fu .4s cubic-bezier(.4,0,.2,1) both}
+@keyframes fu{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* TOAST */
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(8px);background:var(--ink);color:var(--cream);font-size:12px;letter-spacing:.06em;padding:10px 20px;border-radius:2px;opacity:0;pointer-events:none;transition:all .3s ease;white-space:nowrap;z-index:999}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.result-tag { color: var(--ink-m-current) !important; }
+.result-desc { color: var(--ink-s-current) !important; }
+.scent-quote { color: var(--ink-m-current) !important; border-left-color: var(--border-current) !important; }
+.kw { color: var(--ink-m-current) !important; border-color: var(--border-current) !important; }
+.item { color: var(--ink-m-current) !important; }
+.item-dash { color: var(--ink-f-current) !important; }
+.btn-act { color: var(--ink-m-current) !important; border-color: var(--border-current) !important; }
+.btn-act.primary { background: var(--ink-current) !important; color: var(--bg-current) !important; }
+#btn-start, #btn-next, .btn-trans-next, .btn-submit {
+  background: #1C1917 !important;
+  color: #FAF7F2 !important;
+}
+.opt.selected {
+  border-color: #1C1917 !important;
+  background: rgba(28,25,23,.03) !important;
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- COVER -->
+<section class="screen active" id="s-cover">
+<div class="cover">
+  <div class="eyebrow">Summer Fragrance Test</div>
+  <h1 class="cover-title">如果你是<br>一支夏日香水</h1>
+  <p class="cover-sub">9 道题，在清晨的风里，<br>找到属于你的那支香。</p>
+
+  <div class="bottles">
+    <div class="bottle-item">
+      <svg viewBox="0 0 44 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="18" y="2" width="8" height="8" rx="2.5" fill="#7BA7BC" opacity=".55"/>
+        <rect x="15" y="10" width="14" height="3" rx="1.5" fill="#7BA7BC" opacity=".35"/>
+        <path d="M14 13 Q11 18 11 24 L11 58 Q11 65 22 65 Q33 65 33 58 L33 24 Q33 18 30 13 Z" fill="#7BA7BC" opacity=".22"/>
+        <path d="M14 13 L30 13 Q33 18 33 24 L33 34 Q22 39 11 34 L11 24 Q11 18 14 13 Z" fill="#7BA7BC" opacity=".13"/>
+      </svg>
+      <span class="bottle-label">第一班轮渡</span>
+    </div>
+    <div class="bottle-item" style="margin-bottom:6px">
+      <svg viewBox="0 0 44 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="17" y="2" width="10" height="7" rx="2.5" fill="#D4859A" opacity=".55"/>
+        <rect x="15" y="9" width="14" height="4" rx="2" fill="#D4859A" opacity=".35"/>
+        <ellipse cx="22" cy="48" rx="13" ry="20" fill="#D4859A" opacity=".22"/>
+        <ellipse cx="22" cy="38" rx="11" ry="12" fill="#D4859A" opacity=".13"/>
+      </svg>
+      <span class="bottle-label">花市</span>
+    </div>
+    <div class="bottle-item" style="margin-bottom:3px">
+      <svg viewBox="0 0 44 66" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="17" y="2" width="10" height="7" rx="2" fill="#7EB89A" opacity=".55"/>
+        <rect x="15" y="9" width="14" height="4" rx="2" fill="#7EB89A" opacity=".35"/>
+        <rect x="10" y="13" width="24" height="46" rx="5" fill="#7EB89A" opacity=".22"/>
+        <rect x="10" y="13" width="24" height="18" rx="5" fill="#7EB89A" opacity=".13"/>
+      </svg>
+      <span class="bottle-label">白衬衫</span>
+    </div>
+    <div class="bottle-item">
+      <svg viewBox="0 0 44 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="17" y="2" width="10" height="7" rx="2.5" fill="#C4976A" opacity=".55"/>
+        <rect x="15" y="9" width="14" height="4" rx="2" fill="#C4976A" opacity=".35"/>
+        <path d="M12 13 Q9 20 9 28 L9 58 Q9 65 22 65 Q35 65 35 58 L35 28 Q35 20 32 13 Z" fill="#C4976A" opacity=".22"/>
+        <path d="M12 13 L32 13 Q35 20 35 28 L35 38 Q22 43 9 38 L9 28 Q9 20 12 13 Z" fill="#C4976A" opacity=".13"/>
+      </svg>
+      <span class="bottle-label">无花果</span>
+    </div>
+  </div>
+
+  <button class="btn-start" id="btn-start">开始 →</button>
+  <div class="cover-foot">9 道题 · 4 种香型</div>
+</div>
+</section>
+
+<!-- trans -->
+<section class="screen" id="s-trans">
+<div class="trans-page fade-up">
+  <div class="eyebrow" id="trans-eyebrow">PART 1</div>
+  <h1 class="trans-title" id="trans-title">章节标题</h1>
+  <p class="trans-sub" id="trans-sub">这里是章节的小描述...</p>
+  <button class="btn-trans-next" id="btn-trans-next">进入题目 →</button>
+</div>
+</section>
+
+<!-- QUIZ -->
+<section class="screen" id="s-quiz">
+<div class="quiz">
+  <div class="quiz-meta">
+    <span class="q-part" id="q-part">PART 1</span>
+    <span class="q-count" id="q-count">1 / 9</span>
+  </div>
+  <div class="progress"><div class="progress-fill" id="q-prog" style="width:0%"></div></div>
+  <div id="q-area" class="fade-up">
+    <div class="q-scene" id="q-scene"></div>
+    <div class="q-text" id="q-text"></div>
+    <div class="q-note" id="q-note"></div>
+    <div class="options" id="q-opts"></div>
+  </div>
+  <div class="quiz-nav">
+    <button class="btn-back" id="btn-prev">← 上一题</button>
+    <button class="btn-next" id="btn-next" disabled>下一题 →</button>
+  </div>
+</div>
+</section>
+
+<!-- RESULT -->
+<section class="screen" id="s-result">
+  <div class="result" id="result-inner"></div>
+</section>
+
+<!-- DONE -->
+<section class="screen" id="s-done">
+<div class="done">
+  <div class="eyebrow" style="margin-bottom:2rem">✦</div>
+  <div class="done-prose">
+    <p>已经收到了。</p>
+    <p style="color:var(--ink-f);font-size:.875em">祝你也有一个美好的夏天。</p>
+  </div>
+</div>
+</section>
+
+</div>
+<div class="toast" id="toast">已复制到剪贴板</div>
+
+<script>
+// 在这里配置每个 PART 独占一页时的标题和描述文案
+var PART_INTRO = {
+  'PART 1': { title: '夏天醒来的时候', sub: '夏日在清晨睁眼时，<br>就已经悄然而至。' },
+  'PART 2': { title: '空气开始变热之后', sub: '正午的热浪与光影，<br>藏着夏天最鲜活的气息。' },
+  'PART 3': { title: '夜晚留下了什么', sub: '当喧嚣退去，夜晚的微风<br>会帮你收藏起最真实的心绪。' }
+};
+var PARTS=[
+  {label:'PART 1',scene:'夏天醒来的时候'},
+  {label:'PART 1',scene:'夏天醒来的时候'},
+  {label:'PART 2',scene:'空气开始变热之后'},
+  {label:'PART 2',scene:'空气开始变热之后'},
+  {label:'PART 2',scene:'空气开始变热之后'},
+  {label:'PART 2',scene:'空气开始变热之后'},
+  {label:'PART 2',scene:'空气开始变热之后'},
+  {label:'PART 3',scene:'夜晚留下了什么'},
+  {label:'PART 3',scene:'夜晚留下了什么'},
+];
+
+var QS=[
+  {text:'如果这个夏天，突然漏出一个没有标记行程的午后，你最想：',w:1,high:false,opts:[
+    {k:'A',t:'去海边或湖边坐着，什么都不想，就坐着吹风'},
+    {k:'B',t:'约朋友逛商场或者露天集市，热闹一点才好'},
+    {k:'C',t:'整理房间、洗晒衣服，然后坐在窗明几净的桌前，享受井井有条的下午'},
+    {k:'D',t:'待在家里，放点音乐，读一本平时没时间看的大部头小说，或者观看积在影单中的电影'},
+  ]},
+  {text:'哪一种夏日的清晨，会让你觉得今天是个好日子？',w:1,high:false,opts:[
+    {k:'A',t:'清晨，天还没完全亮透，空气里带着点冷冽的凉，风吹过来，皮肤上泛起细密的战栗'},
+    {k:'B',t:'日光透进窗帘，隐约听见鸟雀鸣声，窗外早餐摊开始热闹起来'},
+    {k:'C',t:'一场夜雨刚停。泥土潮湿，世界被洗得一尘不染'},
+    {k:'D',t:'刚好是个阴天，也不赶时间，可以在床上再赖一会儿'},
+  ]},
+  {text:'运动结束后，你最想立刻喝到：',w:1,high:false,opts:[
+    {k:'A',t:'加满冰块和薄荷的柠檬气泡水'},
+    {k:'B',t:'酸甜的冰镇荔枝葡萄柚特调'},
+    {k:'C',t:'冷泡茉莉绿茶，茶汤澄澈，有淡淡的回甘'},
+    {k:'D',t:'常温的、不加糖的大麦茶或厚乳乌龙'},
+  ]},
+  {text:'某一瞬间，你会因为哪种忽然飘进鼻尖的气味，心情变好？',w:1,high:false,opts:[
+    {k:'A',t:'暴雨来临前，突然刮起冷风，空气里带着潮湿泥土的腥气和青草的清苦味'},
+    {k:'B',t:'路过花店和水果摊时，混在一起的甜甜的香气'},
+    {k:'C',t:'刚刚揉搓开香皂泡沫时，指缝间弥漫开的、微涩而洁净的皂香'},
+    {k:'D',t:'阳光晒热了木头书架，书籍在翻动时，散发的旧书页与油墨味'},
+  ]},
+  {text:'你更希望自己的气味给人留下什么印象？',w:2,high:false,opts:[
+    {k:'A',t:'像清晨拂面而过的海风——让人一秒清醒，但却只能感受，无法捕捉'},
+    {k:'B',t:'像刚拉开拉环的橘子汽水——元气满满，让人忍不住微笑'},
+    {k:'C',t:'像阳光照进空无一人的美术馆——安静，有一种不被打扰的舒适气场'},
+    {k:'D',t:'像黄昏时树木茂密的公园——长椅上落满晚霞，沉稳、包容，让人想坐下来慢慢欣赏日落'},
+  ]},
+  {text:'如果今天必须携带一种"嗅觉名片"出门，你会选择：',w:1,high:false,opts:[
+    {k:'A',t:'碎冰与草本植物。像含了一颗强效薄荷糖，清冽、透气、提神'},
+    {k:'B',t:'荔枝与盛开的玫瑰。甜润、有活力，每走一步都带着热烈的生活热忱'},
+    {k:'C',t:'白茶与山谷铃兰。轻盈、素雅，不带任何侵略性'},
+    {k:'D',t:'熟透的梨与古老檀香。像是老胶片相机或带有体温的针织衫，温厚、有质感'},
+  ]},
+  {text:'出门前，你最可能顺手做的一件事是：',w:1,high:false,opts:[
+    {k:'A',t:'打开音乐，把耳机音量调至适中，塞进耳朵'},
+    {k:'B',t:'对着玄关的镜子整理一番，顺便冲自己笑一下'},
+    {k:'C',t:'在包里塞一包干净的面巾纸，或者带上一把遮阳伞'},
+    {k:'D',t:'顺手给绿植浇点水，拂去叶片的灰尘'},
+  ]},
+  {text:'经历了白日的喧嚣，在独处的深夜里，你觉得最能安抚你的是：',w:2,high:false,opts:[
+    {k:'A',t:'无尽的深夜。拉开窗帘看着空无一人的马路，世界终于安静下来，让你可以清晰地整理自己的心绪'},
+    {k:'B',t:'手机里朋友或家人发来的打闹语音，或者是明天一早就要去见喜欢的人的期待'},
+    {k:'C',t:'洗个热水澡，换上干净松软的睡衣。躺在刚铺好的床单上，闻到淡淡的洗涤剂香气'},
+    {k:'D',t:'一盏微弱的床头灯，和一段读了无数遍、早就知道结局的旧故事'},
+  ]},
+  {text:'漫长的夏日终将过去。如果只能在心底留存一个永恒的剪影，你的选择是：',w:0,high:true,opts:[
+    {k:'A',t:'清晨五点的露台，高处的风很大。整座城市还没有完全苏醒，连风都带着没有被打扰的清凉'},
+    {k:'B',t:'午后充满阳光的文化小巷。贩卖各色小玩意的杂货铺放着夏日气息的音乐，门口的彩色风铃在风里叮当作响'},
+    {k:'C',t:'正午的太阳照进百叶窗，光影一格一格落在地板上，房间里安静得只有风扇的转动声'},
+    {k:'D',t:'黄昏落日，坐在草地上，手边是一本翻了一半的书'},
+  ]},
+];
+
+var RES={
+  A:{name:'第一班轮渡',tag:'海洋水生调 · 清晨五点的海岸',
+    // 你的新计划：轮渡方案
+    color:'#2E86C1', // 标题
+    bg:'#EDF5FB',    // 背景
+    font:'#154360',  // 正文
+    sub:'#5A8FA8',   // 辅助文字（含次要、线条等）
+    line:'#B8D4E8',  // 分割线
+    desc:['你像夏天里最先醒来的那阵风。','很多时候，人们会被你身上的"清醒"所吸引——你好像永远有自己的节奏，不轻易被周围的声音裹挟。','你喜欢开阔的视野、流通的空气，以及一切留有空隙的东西。比起"冷淡"，这更像是你太容易共情别人的情绪，所以必须用距离来保护自己内心的清净。','比起热闹，你更偏爱：风、海面、耳机里的音乐，和那些可以让人暂时逃离现实的空白时刻。'],
+    scent:'海水、薄荷、清晨未散的雾气，与指尖拂过冰凉石阶时的清冽。',
+    kws:['海风','耳机','冰块','清晨','自由感','透明空气'],
+    items:['一只浅蓝色渐变透明运动水杯','降噪耳机','薄荷味润唇膏','冷色系运动外套']},
+  B:{name:'下午三点的花市',tag:'花果气泡调 · 元气甜感热闹鲜活',
+    // 你的新计划：花市方案
+    color:'#F0C4B7', // 标题
+    bg:'#FAF5F2',    // 背景
+    font:'#4A3B32',  // 字体
+    sub:'#E8A898',   // 辅助/次要文字
+    line:'#F5D8CC',  // 线条
+    desc:['你像一瓶刚刚拉开拉环的夏日汽水。','你的存在感并不锋利，却总能让周围的空气一起变得轻快起来。你喜欢鲜活的人、明亮的情绪，以及"今天会发生点什么"的惊喜感。','你很会感知快乐。一束花、一杯果茶、一句随口的玩笑，都足够让你重新恢复能量。','比起站在远处安静地看世界，你更喜欢：真正扑进生活里，沾一身烟火气。'],
+    scent:'荔枝、葡萄柚、盛开的花朵，与被太阳晒得暖洋洋的甜味空气。',
+    kws:['晚霞','果汁汽水','热闹','花店','笑声','生命力'],
+    items:['一只粉色透明渐变运动水杯','挂着水珠的睡莲','拍立得','会反光的耳饰或发夹']},
+  C:{name:'晴空与白衬衫',tag:'白茶皂感调 · 洗净阳光下的白衬衫',
+    // 你的新计划：白衬衫方案
+    color:'#90C9E8', // 标题
+    bg:'#F4F8FA',    // 背景
+    font:'#5A7D8F',  // 字体
+    sub:'#8AAABB',   // 辅助/次要文字
+    line:'#D8E8F0',  // 线条
+    desc:['你像雨停之后，窗户被重新打开的那个瞬间。','你身上有一种很舒服的"留白感"。不吵闹，也不刻意去吸引谁，但只要靠近你，周围就会慢慢安静下来。','你喜欢干净的气味、整洁的空间，以及一切"刚刚好"的状态。你对秩序的执着，其实是因为你很珍惜自己的精力——你不想把时间浪费在无意义的内耗上。','很多时候，你真正需要的不是热烈的情绪，而是窗帘飘动、阳光落进房间，以及终于可以松一口气的松弛时刻。'],
+    scent:'白茶、洗净的棉布、微风，与刚从晾衣绳上取下的白衬衫。',
+    kws:['白衬衫','冷泡茶','阳光','窗边','洁净感','低饱和度'],
+    items:['一只浅绿色透明运动水杯','干净的棉布手帕','冷泡茉莉绿茶','无香面巾纸']},
+  D:{name:'无花果与旧书页',tag:'木质果香调 · 温柔的大人感',
+    // 你的新计划：无花果方案
+    color:'#C0A595', // 标题
+    bg:'#F4EFEA',    // 背景
+    font:'#3E3631',  // 字体
+    sub:'#A8907E',   // 辅助/次要文字
+    line:'#DDD0C4',  // 线条
+    desc:['你像日落时分，书房中被夕阳大片晒暖的木质书架。','你的话可能不多，内心却有一股很深的温柔。比起短暂、热烈但容易熄灭的刺激，你更偏爱那些能被时间留下来的东西。','你会反复爱上：旧电影、老歌、熟悉的故事、某种陪伴了自己很久的味道。','你给人的感觉，就像是那个可以让人卸下防备、安心靠在旁边睡着的人。'],
+    scent:'成熟的无花果、红茶、木质书架，与黄昏时慢慢落下去的光线。',
+    kws:['旧书页','黄昏','木质香','草地','慢节奏','安全感'],
+    items:['一只粉棕色透明渐变运动水杯','一本翻了很多遍的旧书','表面微微磨损的皮质钥匙扣','亚麻或针织材质的外套']},
+};
+
+var cur=0, ans=new Array(QS.length).fill(null);
+var isAtIntro = false; // 标记当前是否停留在Part介绍页
+
+function show(id){
+  document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active')});
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// 新增：专用于随机打乱数组顺序的洗牌函数
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+  while (0 !== currentIndex) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+  return array;
+}
+
+// 检查并展示 Part 介绍页
+function checkAndShowIntro(i, callback) {
+  var currentPart = PARTS[i].label;
+  var prevPart = i > 0 ? PARTS[i-1].label : null;
+  
+  // 如果是第一题，或者当前题目的 Part 和上一题不一样（说明跨 Part 了）
+  if (prevPart !== currentPart) {
+    isAtIntro = true;
+    var intro = PART_INTRO[currentPart];
+    document.getElementById('trans-eyebrow').textContent = currentPart;
+    document.getElementById('trans-title').textContent = intro.title;
+    document.getElementById('trans-sub').innerHTML = intro.sub;
+    
+    show('s-trans');
+    
+    // 给过渡页按钮绑定一次性点击事件，点击后进入题目
+    var nextBtn = document.getElementById('btn-trans-next');
+    var newNextBtn = nextBtn.cloneNode(true);
+    nextBtn.parentNode.replaceChild(newNextBtn, nextBtn); // 清除旧的事件监听
+    newNextBtn.addEventListener('click', function() {
+      isAtIntro = false;
+      callback();
+    });
+    return true;
+  }
+  return false;
+}
+
+function renderQ(i){
+  var q=QS[i], p=PARTS[i];
+  document.getElementById('q-part').textContent=p.label;
+  document.getElementById('q-count').textContent=(i+1)+' / '+QS.length;
+  document.getElementById('q-prog').style.width=(i/QS.length*100)+'%';
+  document.getElementById('q-scene').textContent=p.scene;
+  document.getElementById('q-text').textContent=q.text;
+  document.getElementById('q-note').textContent=q.high&&q.w>0?'★  高权重题':'';
+  var area=document.getElementById('q-area');
+  area.classList.remove('fade-up'); void area.offsetWidth; area.classList.add('fade-up');
+  
+  var opts=document.getElementById('q-opts');
+  opts.innerHTML='';
+  
+  /* --- 核心修改：让 ABCD 顺序不变，仅把“文本内容”抽出来打乱 --- */
+  // 1. 提取出当前题目所有的选项文本
+  var pureTexts = q.opts.map(function(o) { return o.t; });
+  // 2. 将这些文本内容随机打乱
+  var shuffledTexts = shuffle(pureTexts);
+  
+  // 3. 固定按照 A、B、C、D 的顺序生成按钮，但把打乱后的文本依次填进去
+  var keys = ['A', 'B', 'C', 'D'];
+  keys.forEach(function(key, index){
+    // 获取当前位置被分到的随机文本
+    var targetText = shuffledTexts[index];
+    
+    // 【关键】：我们需要在原始数据中，反向找到这个文本原本属于哪个字母(A/B/C/D)，用于计分！
+    var originalOpt = q.opts.find(function(o) { return o.t === targetText; });
+    var originalKey = originalOpt ? originalOpt.k : key; 
+    
+    var btn=document.createElement('button');
+    // 如果用户之前已经选过这一题，且当时选的文本和现在这个按钮的原始代号一致，就保持高亮
+    btn.className='opt'+(ans[i]===originalKey?' selected':'');
+    btn.innerHTML='<span class="opt-key">'+key+'</span><span class="opt-text">'+targetText+'</span>';
+    
+    btn.addEventListener('click',function(){
+      // 用户点击了这个按钮，本质上选择的是这串文本对应的【原始字母代号】
+      ans[i]=originalKey;
+      opts.querySelectorAll('.opt').forEach(function(b){b.classList.remove('selected')});
+      btn.classList.add('selected');
+      document.getElementById('btn-next').disabled=false;
+    });
+    opts.appendChild(btn);
+  });
+  
+  document.getElementById('btn-prev').disabled=i===0;
+  document.getElementById('btn-next').disabled=ans[i]===null;
+  document.getElementById('btn-next').textContent=i===QS.length-1?'查看结果 →':'下一题 →';
+}
+
+function calcResult(){
+  var sc={A:0,B:0,C:0,D:0};
+  for(var i=0;i<8;i++){if(ans[i])sc[ans[i]]+=QS[i].w;}
+  var q9=ans[8];
+  var max=Math.max(sc.A,sc.B,sc.C,sc.D);
+  var leaders=['A','B','C','D'].filter(function(k){return sc[k]===max});
+  if(leaders.length===1)return leaders[0];
+  if(q9&&leaders.indexOf(q9)>=0)return q9;
+  return leaders[0];
+}
+
+function renderResult(key){
+  var r=RES[key];
+  
+  /* --- 核心：实时一键切换为该香型的专属全局皮肤 --- */
+  var root = document.documentElement;
+  root.style.setProperty('--bg-current', r.bg);
+  root.style.setProperty('--ink-current', r.font);
+  root.style.setProperty('--ink-s-current', r.font); // 绑定为你的“正文/字体”色
+  root.style.setProperty('--ink-m-current', r.sub);  // 绑定为你的“辅助/次要文字”色
+  root.style.setProperty('--ink-f-current', r.sub);  // 辅助次要延伸色
+  root.style.setProperty('--border-current', r.line); // 绑定为你的“线条/分割线”色
+  
+  // 渲染动态生成的 HTML（已彻底剔除重复项，完美匹配图文归类）
+  var el=document.getElementById('result-inner');
+  el.innerHTML=
+    '<div class="eyebrow" style="margin-bottom:1.2rem;">Your Summer Scent</div>'+
+    '<div class="result-name" style="color:'+r.color+';">'+r.name+'</div>'+
+    '<div class="result-tag">'+r.tag+'</div>'+
+    '<div class="divider"></div>'+
+    '<div class="result-desc">'+r.desc.map(function(p){return'<p>'+p+'</p>'}).join('')+'</div>'+
+    '<div class="divider"></div>'+
+    '<div class="sec-label" style="margin-bottom:.7rem">你的气味像</div>'+
+    '<div class="scent-quote">'+r.scent+'</div>'+
+    '<div class="divider"></div>'+
+    '<div class="sec-label">夏日关键词</div>'+
+    '<div class="keywords" style="margin-bottom:2rem">'+r.kws.map(function(k){return'<span class="kw">'+k+'</span>'}).join('')+'</div>'+
+    '<div class="sec-label">你的夏日随身物</div>'+
+    '<div class="items" style="margin-bottom:2.5rem">'+r.items.map(function(it){return'<div class="item"><span class="item-dash">—</span><span>'+it+'</span></div>'}).join('')+'</div>'+
+    '<div class="result-actions">'+
+      '<button class="btn-act" id="btn-copy" style="width:100%;">复制结果</button>'+ // 加了 width:100% 让它单按钮撑满撑好看
+    '</div>';
+
+  /* --- 绑定按钮交互事件 --- */
+  document.getElementById('btn-copy').addEventListener('click',function(){
+    var txt='【如果你是一支夏日香水】\n我是：'+r.name+'\n'+r.tag+'\n\n关键词：'+r.kws.join(' · ');
+    try{navigator.clipboard.writeText(txt)}catch(e){}
+    showToast('已复制到剪贴板');
+  });
+}
+
+function showToast(msg){
+  var t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(function(){t.classList.remove('show')},2200);
+}
+
+document.getElementById('btn-start').addEventListener('click',function(){cur=0;
+  if(!checkAndShowIntro(cur, function(){ show('s-quiz'); renderQ(cur); })) {
+    show('s-quiz'); renderQ(cur);
+  }
+});
+
+document.getElementById('btn-next').addEventListener('click',function(){
+  if(cur===QS.length-1){renderResult(calcResult());show('s-result');return}
+  cur++;
+  // 下一题时，检查是否进入了新的 Part
+  if(!checkAndShowIntro(cur, function(){ show('s-quiz'); renderQ(cur); })) {
+    show('s-quiz');renderQ(cur);
+}
+});
+document.getElementById('btn-prev').addEventListener('click',function(){if(cur>0){
+    cur--;
+    // 上一题时，不强制看过渡页，直接返回题目页面
+    show('s-quiz'); 
+    renderQ(cur);
+  }
+});
+document.getElementById('btn-submit').addEventListener('click',function(){show('s-done')});
+</script>
+</body>
+</html>
