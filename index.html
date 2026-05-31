@@ -16,7 +16,6 @@
   --ff-serif:'Noto Serif SC','Cormorant Garamond',serif;
   --ff-sans:'Noto Sans SC',sans-serif;
   --ease:0.25s cubic-bezier(.4,0,.2,1);
-  /* 默认初始状态（封面和题目页使用原本的米白和深色） */
   --bg-current: #FAF7F2;
   --ink-current: #1C1917;
   --ink-s-current: #44403C;
@@ -25,7 +24,6 @@
   --border-current: rgba(28,25,23,0.12);
 }
 
-/* 让 body 的背景和颜色跟随当前动态变量 */
 body {
   background: var(--bg-current);
   color: var(--ink-current);
@@ -35,19 +33,19 @@ body {
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  transition: background var(--ease), color var(--ease); /* 让换色时有丝滑的过渡动画 */
+  transition: background var(--ease), color var(--ease);
 }
 html{-webkit-tap-highlight-color:transparent}
 .container{width:100%;max-width:560px;padding:0 22px 72px}
-.screen{display:none}.screen.active{display:block}
+.screen{display:none}
+.screen.active{display:block}
 
 /* COVER */
 .cover{padding-top:clamp(48px,14vw,88px);min-height:100dvh;display:flex;flex-direction:column}
 .eyebrow{font-size:10px;letter-spacing:.2em;color:var(--ink-f);text-transform:uppercase;margin-bottom:2rem}
 .cover-title{font-family:var(--ff-serif);font-size:clamp(34px,9.5vw,52px);font-weight:300;line-height:1.3;letter-spacing:.03em;margin-bottom:1rem}
-/* 调整了没有香水瓶后的间距，保持视觉美观 */
 .cover-sub{font-size:13px;color:var(--ink-m);line-height:2;margin-bottom:clamp(3.5rem,12vw,6rem);font-weight:300;max-width:300px}
-.bottles{display:none} /* 隐藏香水瓶展示区域 */
+.bottles{display:none} 
 .btn-start{display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:var(--cream);border:none;padding:14px 30px;border-radius:2px;font-size:13px;font-family:var(--ff-sans);font-weight:400;cursor:pointer;letter-spacing:.1em;transition:opacity var(--ease);-webkit-appearance:none}
 .btn-start:active{opacity:.7}
 .cover-foot{margin-top:auto;padding-top:3rem;font-size:11px;color:var(--ink-f);letter-spacing:.07em}
@@ -58,35 +56,35 @@ html{-webkit-tap-highlight-color:transparent}
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
-  justify-content: center;   /* 上下居中 */
-  align-items: center;       /* 左右居中 */
-  text-align: center;        /* 文字居中 */
+  justify-content: center;   
+  align-items: center;       
+  text-align: center;        
 }
 #trans-eyebrow {
-  font-family: 'Source Sans Pro', 'Noto Sans SC', sans-serif; /* 思源黑体/现代无衬线体 */
-  font-size: 13px;                       /* 字号从 10px 放大到 13px */
-  font-weight: 300;                      /* 加粗一点更清晰 */
-  letter-spacing: .2em;                  /* 字间距 */
-  color: var(--ink-f);                   /* 字体颜色 */
+  font-family: 'Source Sans Pro', 'Noto Sans SC', sans-serif; 
+  font-size: 13px;                       
+  font-weight: 300;                      
+  letter-spacing: .2em;                  
+  color: var(--ink-f);                   
   text-transform: uppercase;
-  margin-bottom: 2rem;                   /* 距离大标题的间距 */
+  margin-bottom: 2rem;                   
 }
 .trans-title {
-  font-family: 'Source Serif Pro', 'Noto Serif SC', serif; /* 强制指定为思源宋体/衬线体 */
-  font-size: clamp(28px, 8vw, 38px);     /* 缩小了字号（原最大52px，现最大38px） */
-  font-weight: 400;                      /* 适当增加一点点粗细，让宋体更易读 */
+  font-family: 'Source Serif Pro', 'Noto Serif SC', serif; 
+  font-size: clamp(28px, 8vw, 38px);     
+  font-weight: 400;                      
   line-height: 1.4;
   letter-spacing: .05em;
-  margin-bottom: 2.5rem;                 /* 【核心修改】增大了标题与下方导语的间距（从1.5rem增大到2.5rem） */
+  margin-bottom: 2.5rem;                 
 }
 .trans-sub {
-  font-family: 'Source Sans Pro', 'Noto Sans SC', sans-serif; /* 强制指定为思源黑体/无衬线体 */
-  font-size: 14px;                       /* 字号从 13px 放大到 15px */
-  color: var(--ink-m);                   /* 导语颜色稍微加深，提升清晰度 */
-  line-height: 2.2;                      /* 稍微拉开行高，更具呼吸感 */
-  margin-bottom: clamp(3.5rem, 12vw, 5rem); /* 距离下方按钮的距离 */
+  font-family: 'Source Sans Pro', 'Noto Sans SC', sans-serif; 
+  font-size: 14px;                       
+  color: var(--ink-m);                   
+  line-height: 2.2;                      
+  margin-bottom: clamp(3.5rem, 12vw, 5rem); 
   font-weight: 300;                      
-  max-width: 340px;                      /* 略微加宽文本框，配合大字号排版 */
+  max-width: 340px;                      
   margin-left: auto;
   margin-right: auto;
 }
@@ -101,7 +99,7 @@ html{-webkit-tap-highlight-color:transparent}
   border-radius: 2px;
   font-size: 13px;
   font-family: 'Source Sans Pro', 'Noto Sans SC', sans-serif;
-  font-weight: 400;
+  font-weight: 400; 
   cursor: pointer;
   letter-spacing: .1em;
   transition: opacity var(--ease);
@@ -115,8 +113,7 @@ html{-webkit-tap-highlight-color:transparent}
 .quiz-meta{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem}
 .q-part{font-size:10px;letter-spacing:.18em;color:var(--ink-f);text-transform:uppercase}
 .q-count{font-size:11px;color:var(--ink-f);font-feature-settings:"tnum"}
-.progress{height:1px;background:var(--border-s);margin-bottom:2.5rem;position:relative}
-.progress-fill{position:absolute;top:0;left:0;height:100%;background:var(--ink-f);transition:width .5s cubic-bezier(.4,0,.2,1)}
+.progress{height:1px;background:var(--border-s);margin-bottom:2.5rem;position:relative}\n.progress-fill{position:absolute;top:0;left:0;height:100%;background:var(--ink-f);transition:width .5s cubic-bezier(.4,0,.2,1)}
 .q-scene{font-size:10.5px;letter-spacing:.1em;color:var(--ink-f);font-style:italic;font-family:var(--ff-serif);margin-bottom:.5rem}
 .q-text{font-family:var(--ff-serif);font-size:clamp(16px,4.6vw,20px);font-weight:300;line-height:1.75;color:var(--ink);margin-bottom:.4rem}
 .q-note{font-size:10px;letter-spacing:.1em;color:var(--ink-f);margin-bottom:1.8rem;min-height:16px}
@@ -136,23 +133,21 @@ html{-webkit-tap-highlight-color:transparent}
 
 /* RESULT */
 .result{padding-top:clamp(44px,11vw,68px)}
-/* 【标题】 */
 .result-name {
   font-family: var(--ff-serif);
   font-size: clamp(28px, 8.5vw, 42px);
-  font-weight: 400; /* 适当给宋体加粗一档，更清晰 */
+  font-weight: 400; 
   line-height: 1.3;
   letter-spacing: .03em;
   margin-bottom: .5rem;
 }
-/* 【辅助/次要文字】：Your Summer Scent / 标题下方小字 / 各种模块小标签 */
 .result .eyebrow,
 .result-tag,
 .result .sec-label,
 .item-dash {
   color: var(--ink-m-current) !important;
 }
-.result-tag {
+.result-tag { 
   font-size: 12px;
   letter-spacing: .08em;
   margin-bottom: 2.5rem;
@@ -164,57 +159,51 @@ html{-webkit-tap-highlight-color:transparent}
   text-transform: uppercase;
   margin-bottom: .8rem;
 }
-/* 【分割线】 */
 .result .divider {
   height: 1px;
-  background: var(--border-current) !important; /* 动态绑定线条颜色 */
+  background: var(--border-current) !important; 
   margin: 2rem 0;
 }
-/* 【正文区域】：分析描述 */
 .result-desc {
   font-family: var(--ff-serif);
   font-size: clamp(14px, 4vw, 16px);
   line-height: 2.15;
-  color: var(--ink-s-current) !important; /* 动态绑定正文色 */
+  color: var(--ink-s-current) !important; 
   font-weight: 300;
 }
 .result-desc p { margin-bottom: 1rem; }
 .result-desc p:last-child { margin-bottom: 0; }
-/* 【正文区域】：你的气味像 */
 .scent-quote {
   font-family: var(--ff-serif);
   font-size: 13px;
   font-style: italic;
-  color: var(--ink-s-current) !important; /* 修正：属于正文 */
+  color: var(--ink-s-current) !important; 
   line-height: 1.9;
   padding-left: 1rem;
-  border-left: 1.5px solid var(--border-current) !important; /* 动态绑定线条颜色 */
+  border-left: 1.5px solid var(--border-current) !important; 
   font-weight: 300;
 }
-/* 【正文区域】：夏日关键词 */
 .keywords { display: flex; flex-wrap: wrap; gap: 7px; }
 .kw {
   font-size: 11px;
   letter-spacing: .06em;
-  color: var(--ink-s-current) !important; /* 修正：属于正文 */
+  color: var(--ink-s-current) !important; 
   padding: 5px 13px;
-  border: 1px solid var(--border-current) !important; /* 动态绑定线条颜色 */
+  border: 1px solid var(--border-current) !important; 
   border-radius: 20px;
   font-weight: 300;
 }
-/* 【正文区域】：你的夏日随身物 */
 .items { display: flex; flex-direction: column; gap: 9px; }
 .item {
   display: flex;
   align-items: baseline;
   gap: 10px;
   font-size: 13px;
-  color: var(--ink-s-current) !important; /* 修正：属于正文 */
+  color: var(--ink-s-current) !important; 
   font-weight: 300;
   line-height: 1.6;
 }
 .item-dash { flex-shrink: 0; font-size: 11px; }
-/* 结果页下方动作按钮（自动匹配肤色） */
 .result-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 2.5rem; }
 .result .btn-act {
   flex: 1;
@@ -236,8 +225,8 @@ html{-webkit-tap-highlight-color:transparent}
   -webkit-appearance: none;
 }
 .result .btn-act.primary {
-  background: var(--ink-current) !important; /* 背景使用正文/字体色 */
-  color: var(--bg-current) !important;       /* 文字反白，使用结果背景色 */
+  background: var(--ink-current) !important; 
+  color: var(--bg-current) !important;       
   border-color: transparent !important;
 }
 .result .btn-act.primary:active { opacity: .75; }
@@ -247,6 +236,12 @@ html{-webkit-tap-highlight-color:transparent}
 .thanks-prose{font-family:var(--ff-serif);font-size:clamp(14px,4vw,16px);font-weight:300;line-height:2.2;color:var(--ink-s);margin-bottom:2.5rem}
 .thanks-prose p{margin-bottom:1.2rem}
 .thanks-italic{font-family:var(--ff-serif);font-style:italic;color:var(--ink-m);font-size:13px;line-height:2;margin-bottom:1.5rem;font-weight:300}
+
+/* 新增：单行ID输入框样式 */
+.id-input{width:100%;padding:12px 16px;border:1px solid var(--border);border-radius:2px;background:transparent;font-size:14px;font-family:var(--ff-serif);color:var(--ink);font-weight:300;outline:none;margin-bottom:1rem;-webkit-appearance:none;appearance:none;transition:border-color var(--ease)}
+.id-input::placeholder{color:var(--ink-f)}
+.id-input:focus{border-color:var(--ink-s)}
+
 .wish-input{width:100%;min-height:110px;padding:14px 16px;border:1px solid var(--border);border-radius:2px;background:transparent;font-size:14px;font-family:var(--ff-serif);color:var(--ink);line-height:1.8;resize:vertical;font-weight:300;outline:none;-webkit-appearance:none;appearance:none;transition:border-color var(--ease)}
 .wish-input::placeholder{color:var(--ink-f)}
 .wish-input:focus{border-color:var(--ink-s)}
@@ -268,8 +263,7 @@ html{-webkit-tap-highlight-color:transparent}
 .result-tag { color: var(--ink-m-current) !important; }
 .result-desc { color: var(--ink-s-current) !important; }
 .scent-quote { color: var(--ink-m-current) !important; border-left-color: var(--border-current) !important; }
-.kw { color: var(--ink-m-current) !important; border-color: var(--border-current) !important; }
-.item { color: var(--ink-m-current) !important; }
+.kw { color: var(--ink-m-current) !important; border-color: var(--border-current) !important; }\n.item { color: var(--ink-m-current) !important; }
 .item-dash { color: var(--ink-f-current) !important; }
 .btn-act { color: var(--ink-m-current) !important; border-color: var(--border-current) !important; }
 .btn-act.primary { background: var(--ink-current) !important; color: var(--bg-current) !important; }
@@ -286,58 +280,16 @@ html{-webkit-tap-highlight-color:transparent}
 <body>
 <div class="container">
 
-<!-- COVER -->
 <section class="screen active" id="s-cover">
 <div class="cover">
   <div class="eyebrow">Summer Fragrance Test</div>
   <h1 class="cover-title">如果你是<br>一支夏日香水</h1>
   <p class="cover-sub">9 道题，在清晨的风里，<br>找到属于你的那支香。</p>
-
-  <div class="bottles">
-    <div class="bottle-item">
-      <svg viewBox="0 0 44 70" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="18" y="2" width="8" height="8" rx="2.5" fill="#7BA7BC" opacity=".55"/>
-        <rect x="15" y="10" width="14" height="3" rx="1.5" fill="#7BA7BC" opacity=".35"/>
-        <path d="M14 13 Q11 18 11 24 L11 58 Q11 65 22 65 Q33 65 33 58 L33 24 Q33 18 30 13 Z" fill="#7BA7BC" opacity=".22"/>
-        <path d="M14 13 L30 13 Q33 18 33 24 L33 34 Q22 39 11 34 L11 24 Q11 18 14 13 Z" fill="#7BA7BC" opacity=".13"/>
-      </svg>
-      <span class="bottle-label">第一班轮渡</span>
-    </div>
-    <div class="bottle-item" style="margin-bottom:6px">
-      <svg viewBox="0 0 44 72" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="17" y="2" width="10" height="7" rx="2.5" fill="#D4859A" opacity=".55"/>
-        <rect x="15" y="9" width="14" height="4" rx="2" fill="#D4859A" opacity=".35"/>
-        <ellipse cx="22" cy="48" rx="13" ry="20" fill="#D4859A" opacity=".22"/>
-        <ellipse cx="22" cy="38" rx="11" ry="12" fill="#D4859A" opacity=".13"/>
-      </svg>
-      <span class="bottle-label">花市</span>
-    </div>
-    <div class="bottle-item" style="margin-bottom:3px">
-      <svg viewBox="0 0 44 66" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="17" y="2" width="10" height="7" rx="2" fill="#7EB89A" opacity=".55"/>
-        <rect x="15" y="9" width="14" height="4" rx="2" fill="#7EB89A" opacity=".35"/>
-        <rect x="10" y="13" width="24" height="46" rx="5" fill="#7EB89A" opacity=".22"/>
-        <rect x="10" y="13" width="24" height="18" rx="5" fill="#7EB89A" opacity=".13"/>
-      </svg>
-      <span class="bottle-label">白衬衫</span>
-    </div>
-    <div class="bottle-item">
-      <svg viewBox="0 0 44 72" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="17" y="2" width="10" height="7" rx="2.5" fill="#C4976A" opacity=".55"/>
-        <rect x="15" y="9" width="14" height="4" rx="2" fill="#C4976A" opacity=".35"/>
-        <path d="M12 13 Q9 20 9 28 L9 58 Q9 65 22 65 Q35 65 35 58 L35 28 Q35 20 32 13 Z" fill="#C4976A" opacity=".22"/>
-        <path d="M12 13 L32 13 Q35 20 35 28 L35 38 Q22 43 9 38 L9 28 Q9 20 12 13 Z" fill="#C4976A" opacity=".13"/>
-      </svg>
-      <span class="bottle-label">无花果</span>
-    </div>
-  </div>
-
   <button class="btn-start" id="btn-start">开始 →</button>
   <div class="cover-foot">9 道题 · 4 种香型</div>
 </div>
 </section>
 
-<!-- trans -->
 <section class="screen" id="s-trans">
 <div class="trans-page fade-up">
   <div class="eyebrow" id="trans-eyebrow">PART 1</div>
@@ -347,7 +299,6 @@ html{-webkit-tap-highlight-color:transparent}
 </div>
 </section>
 
-<!-- QUIZ -->
 <section class="screen" id="s-quiz">
 <div class="quiz">
   <div class="quiz-meta">
@@ -368,12 +319,10 @@ html{-webkit-tap-highlight-color:transparent}
 </div>
 </section>
 
-<!-- RESULT -->
 <section class="screen" id="s-result">
   <div class="result" id="result-inner"></div>
 </section>
 
-<!-- THANKS -->
 <section class="screen" id="s-thanks">
 <div class="thanks">
   <div class="eyebrow" style="margin-bottom:2rem">谢谢你</div>
@@ -384,13 +333,14 @@ html{-webkit-tap-highlight-color:transparent}
     <p>谢谢你愿意读到这里。<br>也希望这个夏天，会有某一种气味刚好属于你。</p>
   </div>
   <p class="thanks-italic">如果你愿意的话，<br>也欢迎在最后留一句生日祝福给她。</p>
+  
+  <input type="text" class="id-input" id="id-input" placeholder="留下一只属于你的特殊代号/名字吧…">
   <textarea class="wish-input" id="wish-input" placeholder="写下你的祝福…"></textarea>
   <br>
   <button class="btn-submit" id="btn-submit">送出 →</button>
 </div>
 </section>
 
-<!-- DONE -->
 <section class="screen" id="s-done">
 <div class="done">
   <div class="eyebrow" style="margin-bottom:2rem">✦</div>
@@ -405,7 +355,6 @@ html{-webkit-tap-highlight-color:transparent}
 <div class="toast" id="toast">已复制到剪贴板</div>
 
 <script>
-// 在这里配置每个 PART 独占一页时的标题和描述文案
 var PART_INTRO = {
   'PART 1': { title: '夏天醒来的时候', sub: '夏日在清晨睁眼时，<br>就已经悄然而至。' },
   'PART 2': { title: '空气开始变热之后', sub: '正午的热浪与光影，<br>藏着夏天最鲜活的气息。' },
@@ -482,45 +431,25 @@ var QS=[
 
 var RES={
   A:{name:'第一班轮渡',tag:'海洋水生调 · 清晨五点的海岸',
-    // 你的新计划：轮渡方案
-    color:'#2E86C1', // 标题
-    bg:'#EDF5FB',    // 背景
-    font:'#154360',  // 正文
-    sub:'#5A8FA8',   // 辅助文字（含次要、线条等）
-    line:'#B8D4E8',  // 分割线
+    color:'#2E86C1', bg:'#EDF5FB', font:'#154360', sub:'#5A8FA8', line:'#B8D4E8',
     desc:['你像夏天里最先醒来的那阵风。','很多时候，人们会被你身上的"清醒"所吸引——你好像永远有自己的节奏，不轻易被周围的声音裹挟。','你喜欢开阔的视野、流通的空气，以及一切留有空隙的东西。比起"冷淡"，这更像是你太容易共情别人的情绪，所以必须用距离来保护自己内心的清净。','比起热闹，你更偏爱：风、海面、耳机里的音乐，和那些可以让人暂时逃离现实的空白时刻。'],
     scent:'海水、薄荷、清晨未散的雾气，与指尖拂过冰凉石阶时的清冽。',
     kws:['海风','耳机','冰块','清晨','自由感','透明空气'],
     items:['一只浅蓝色渐变透明运动水杯','降噪耳机','薄荷味润唇膏','冷色系运动外套']},
   B:{name:'下午三点的花市',tag:'花果气泡调 · 元气甜感热闹鲜活',
-    // 你的新计划：花市方案
-    color:'#F0C4B7', // 标题
-    bg:'#FAF5F2',    // 背景
-    font:'#4A3B32',  // 字体
-    sub:'#E8A898',   // 辅助/次要文字
-    line:'#F5D8CC',  // 线条
-    desc:['你像一瓶刚刚拉开拉环的夏日汽水。','你的存在感并不锋利，却总能让周围的空气一起变得轻快起来。你喜欢鲜活的人、明亮的情绪，以及"今天会发生点什么"的惊喜感。','你很会感知快乐。一束花、一杯果茶、一句随口的玩笑，都足够让你重新恢复能量。','比起站在远处安静地看世界，你更喜欢：真正扑进生活里，沾一身烟火气。'],
+    color:'#F0C4B7', bg:'#FAF5F2', font:'#4A3B32', sub:'#E8A898', line:'#F5D8CC',
+    desc:['你像一瓶刚刚拉开拉环的夏日汽水。','你的存在感并不锋利，却总能让周围的空气一起变得轻快起来。你喜欢鲜活的人、明亮的情绪，以及"今天会发生点什么"的惊喜感。','你很会感知快乐。一束花、一杯果茶、一句随口的玩笑，都足够让你重新恢复能量。','降低站在远处安静地看世界，你更喜欢：真正扑进生活里，沾一身烟火气。'],
     scent:'荔枝、葡萄柚、盛开的花朵，与被太阳晒得暖洋洋的甜味空气。',
     kws:['晚霞','果汁汽水','热闹','花店','笑声','生命力'],
     items:['一只粉色透明渐变运动水杯','挂着水珠的睡莲','拍立得','会反光的耳饰或发夹']},
   C:{name:'晴空与白衬衫',tag:'白茶皂感调 · 洗净阳光下的白衬衫',
-    // 你的新计划：白衬衫方案
-    color:'#90C9E8', // 标题
-    bg:'#F4F8FA',    // 背景
-    font:'#5A7D8F',  // 字体
-    sub:'#8AAABB',   // 辅助/次要文字
-    line:'#D8E8F0',  // 线条
-    desc:['你像雨停之后，窗户被重新打开的那个瞬间。','你身上有一种很舒服的"留白感"。不吵闹，也不刻意去吸引谁，但只要靠近你，周围就会慢慢安静下来。','你喜欢干净的气味、整洁的空间，以及一切"刚刚好"的状态。你对秩序的执着，其实是因为你很珍惜自己的精力——你不想把时间浪费在无意义的内耗上。','很多时候，你真正需要的不是热烈的情绪，而是窗帘飘动、阳光落进房间，以及终于可以松一口气的松弛时刻。'],
+    color:'#90C9E8', bg:'#F4F8FA', font:'#5A7D8F', sub:'#8AAABB', line:'#D8E8F0',
+    desc:['你像雨停之后，窗户被重新打开的那个瞬间。','你身上有一种很舒服的"留白感"。不吵闹，也不刻意去吸引谁，但只要靠近你，周围就会慢慢安静下来。','你喜欢干净的气味、整洁的空间，以及一切"刚刚好"的状态。你对秩序의执着，其实是因为你很珍惜自己的精力——你不想把时间浪费在无意义的内耗上。','很多时候，你真正需要的不是热烈的情绪，而是窗帘飘动、阳光落进房间，以及终于可以松一口气的松弛时刻。'],
     scent:'白茶、洗净的棉布、微风，与刚从晾衣绳上取下的白衬衫。',
     kws:['白衬衫','冷泡茶','阳光','窗边','洁净感','低饱和度'],
     items:['一只浅绿色透明运动水杯','干净的棉布手帕','冷泡茉莉绿茶','无香面巾纸']},
   D:{name:'无花果与旧书页',tag:'木质果香调 · 温柔的大人感',
-    // 你的新计划：无花果方案
-    color:'#C0A595', // 标题
-    bg:'#F4EFEA',    // 背景
-    font:'#3E3631',  // 字体
-    sub:'#A8907E',   // 辅助/次要文字
-    line:'#DDD0C4',  // 线条
+    color:'#C0A595', bg:'#F4EFEA', font:'#3E3631', sub:'#A8907E', line:'#DDD0C4',
     desc:['你像日落时分，书房中被夕阳大片晒暖的木质书架。','你的话可能不多，内心却有一股很深的温柔。比起短暂、热烈但容易熄灭的刺激，你更偏爱那些能被时间留下来的东西。','你会反复爱上：旧电影、老歌、熟悉的故事、某种陪伴了自己很久的味道。','你给人的感觉，就像是那个可以让人卸下防备、安心靠在旁边睡着的人。'],
     scent:'成熟的无花果、红茶、木质书架，与黄昏时慢慢落下去的光线。',
     kws:['旧书页','黄昏','木质香','草地','慢节奏','安全感'],
@@ -528,7 +457,7 @@ var RES={
 };
 
 var cur=0, ans=new Array(QS.length).fill(null);
-var isAtIntro = false; // 标记当前是否停留在Part介绍页
+var isAtIntro = false;
 
 function show(id){
   document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active')});
@@ -536,7 +465,6 @@ function show(id){
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
-// 新增：专用于随机打乱数组顺序的洗牌函数
 function shuffle(array) {
   var currentIndex = array.length, temporaryValue, randomIndex;
   while (0 !== currentIndex) {
@@ -549,25 +477,19 @@ function shuffle(array) {
   return array;
 }
 
-// 检查并展示 Part 介绍页
 function checkAndShowIntro(i, callback) {
   var currentPart = PARTS[i].label;
   var prevPart = i > 0 ? PARTS[i-1].label : null;
-  
-  // 如果是第一题，或者当前题目的 Part 和上一题不一样（说明跨 Part 了）
   if (prevPart !== currentPart) {
     isAtIntro = true;
     var intro = PART_INTRO[currentPart];
     document.getElementById('trans-eyebrow').textContent = currentPart;
     document.getElementById('trans-title').textContent = intro.title;
     document.getElementById('trans-sub').innerHTML = intro.sub;
-    
     show('s-trans');
-    
-    // 给过渡页按钮绑定一次性点击事件，点击后进入题目
     var nextBtn = document.getElementById('btn-trans-next');
     var newNextBtn = nextBtn.cloneNode(true);
-    nextBtn.parentNode.replaceChild(newNextBtn, nextBtn); // 清除旧的事件监听
+    nextBtn.parentNode.replaceChild(newNextBtn, nextBtn);
     newNextBtn.addEventListener('click', function() {
       isAtIntro = false;
       callback();
@@ -576,6 +498,39 @@ function checkAndShowIntro(i, callback) {
   }
   return false;
 }
+
+// “保持ABCD顺序不变，文本内容随机打乱”机制
+function initShuffledQuiz() {
+  var keys = ['A', 'B', 'C', 'D'];
+  for (var i = 0; i < QS.length; i++) {
+    var q = QS[i];
+    var pureTexts = q.opts.map(function(o) { return o.t || o.text; });
+    var shuffledTexts = shuffle([].concat(pureTexts));
+    
+    var newOpts = [];
+    for (var index = 0; index < keys.length; index++) {
+      var currentKey = keys[index];
+      var targetText = shuffledTexts[index];
+      
+      var originalKey = currentKey;
+      for (var j = 0; j < q.opts.length; j++) {
+        var origText = q.opts[j].t || q.opts[j].text || '';
+        if (origText === targetText) {
+          originalKey = q.opts[j].k || q.opts[j].key || currentKey;
+          break;
+        }
+      }
+      
+      newOpts.push({
+        displayKey: currentKey, 
+        text: targetText,       
+        realKey: originalKey    
+      });
+    }
+    q.shuffledOpts = newOpts;
+  }
+}
+initShuffledQuiz();
 
 function renderQ(i){
   var q=QS[i], p=PARTS[i];
@@ -591,30 +546,13 @@ function renderQ(i){
   var opts=document.getElementById('q-opts');
   opts.innerHTML='';
   
-  /* --- 核心修改：让 ABCD 顺序不变，仅把“文本内容”抽出来打乱 --- */
-  // 1. 提取出当前题目所有的选项文本
-  var pureTexts = q.opts.map(function(o) { return o.t; });
-  // 2. 将这些文本内容随机打乱
-  var shuffledTexts = shuffle(pureTexts);
-  
-  // 3. 固定按照 A、B、C、D 的顺序生成按钮，但把打乱后的文本依次填进去
-  var keys = ['A', 'B', 'C', 'D'];
-  keys.forEach(function(key, index){
-    // 获取当前位置被分到的随机文本
-    var targetText = shuffledTexts[index];
-    
-    // 【关键】：我们需要在原始数据中，反向找到这个文本原本属于哪个字母(A/B/C/D)，用于计分！
-    var originalOpt = q.opts.find(function(o) { return o.t === targetText; });
-    var originalKey = originalOpt ? originalOpt.k : key; 
-    
+  q.shuffledOpts.forEach(function(optItem){
     var btn=document.createElement('button');
-    // 如果用户之前已经选过这一题，且当时选的文本和现在这个按钮的原始代号一致，就保持高亮
-    btn.className='opt'+(ans[i]===originalKey?' selected':'');
-    btn.innerHTML='<span class="opt-key">'+key+'</span><span class="opt-text">'+targetText+'</span>';
+    btn.className='opt'+(ans[i]===optItem.realKey?' selected':'');
+    btn.innerHTML='<span class="opt-key">'+optItem.displayKey+'</span><span class="opt-text">'+optItem.text+'</span>';
     
     btn.addEventListener('click',function(){
-      // 用户点击了这个按钮，本质上选择的是这串文本对应的【原始字母代号】
-      ans[i]=originalKey;
+      ans[i]=optItem.realKey;
       opts.querySelectorAll('.opt').forEach(function(b){b.classList.remove('selected')});
       btn.classList.add('selected');
       document.getElementById('btn-next').disabled=false;
@@ -628,29 +566,32 @@ function renderQ(i){
 }
 
 function calcResult(){
-  var sc={A:0,B:0,C:0,D:0};
-  for(var i=0;i<8;i++){if(ans[i])sc[ans[i]]+=QS[i].w;}
-  var q9=ans[8];
-  var max=Math.max(sc.A,sc.B,sc.C,sc.D);
-  var leaders=['A','B','C','D'].filter(function(k){return sc[k]===max});
-  if(leaders.length===1)return leaders[0];
-  if(q9&&leaders.indexOf(q9)>=0)return q9;
-  return leaders[0];
+  var score={A:0,B:0,C:0,D:0};
+  for(var i=0;i<QS.length;i++){
+    var k=ans[i];
+    if(k) score[k]+=QS[i].w; 
+  }
+  var maxK='A',maxV=-1;
+  var keys=['A','B','C','D'];
+  for(var j=0;j<keys.length;j++){
+    if(score[keys[j]]>maxV){
+      maxV=score[keys[j]];
+      maxK=keys[j];
+    }
+  }
+  return maxK;
 }
 
 function renderResult(key){
   var r=RES[key];
-  
-  /* --- 核心：实时一键切换为该香型的专属全局皮肤 --- */
   var root = document.documentElement;
   root.style.setProperty('--bg-current', r.bg);
   root.style.setProperty('--ink-current', r.font);
-  root.style.setProperty('--ink-s-current', r.font); // 绑定为你的“正文/字体”色
-  root.style.setProperty('--ink-m-current', r.sub);  // 绑定为你的“辅助/次要文字”色
-  root.style.setProperty('--ink-f-current', r.sub);  // 辅助次要延伸色
-  root.style.setProperty('--border-current', r.line); // 绑定为你的“线条/分割线”色
+  root.style.setProperty('--ink-s-current', r.font);
+  root.style.setProperty('--ink-m-current', r.sub);
+  root.style.setProperty('--ink-f-current', r.sub);
+  root.style.setProperty('--border-current', r.line);
   
-  // 渲染动态生成的 HTML（已彻底剔除重复项，完美匹配图文归类）
   var el=document.getElementById('result-inner');
   el.innerHTML=
     '<div class="eyebrow" style="margin-bottom:1.2rem;">Your Summer Scent</div>'+
@@ -671,7 +612,6 @@ function renderResult(key){
       '<button class="btn-act primary" id="btn-tothanks">继续 →</button>'+
     '</div>';
 
-  /* --- 绑定按钮交互事件 --- */
   document.getElementById('btn-copy').addEventListener('click',function(){
     var txt='【如果你是一支夏日香水】\n我是：'+r.name+'\n'+r.tag+'\n\n关键词：'+r.kws.join(' · ');
     try{navigator.clipboard.writeText(txt)}catch(e){}
@@ -697,32 +637,41 @@ document.getElementById('btn-start').addEventListener('click',function(){cur=0;
 document.getElementById('btn-next').addEventListener('click',function(){
   if(cur===QS.length-1){renderResult(calcResult());show('s-result');return}
   cur++;
-  // 下一题时，检查是否进入了新的 Part
   if(!checkAndShowIntro(cur, function(){ show('s-quiz'); renderQ(cur); })) {
     show('s-quiz');renderQ(cur);
-}
+  }
 });
+
 document.getElementById('btn-prev').addEventListener('click',function(){if(cur>0){
     cur--;
-    // 上一题时，不强制看过渡页，直接返回题目页面
     show('s-quiz'); 
     renderQ(cur);
   }
 });
+
 /* ==========================================================================
-   新增：Google Forms 祝福与香水结果收集逻辑
+   ⚠️ 核心修改：配置你最新的 3 个表单 Entry 字段
    ========================================================================== */
-var GOOGLE_FORM_URL = 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSfcD8nK9t4pPooUNeAOXmt3e2Rs4GZdMoSAaF2gN70IU_k5mg/formResponse'; // 👈 这里我已经根据你截图里的前缀拼好了，请确保后面这串长ID和你的form action里完全一致
-var ENTRY_RESULT = 'entry.1577313263'; // 对应“香水结果”
-var ENTRY_WISH = 'entry.2128224197';   // 对应“生日祝福”
+var GOOGLE_FORM_URL = 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSfcD8nK9t4pPooUNeAOxm/formResponse';
+var ENTRY_USER_ID = '这里替换成你刚刚查到的_发送人ID_的entry代号'; // 👈 【请手动填入这里】 比如 'entry.5555555'
+var ENTRY_RESULT  = 'entry.1577313263'; 
+var ENTRY_WISH    = 'entry.2128224197';   
 
 document.getElementById('btn-submit').addEventListener('click', function() {
+  var idInput = document.getElementById('id-input');
   var wishInput = document.getElementById('wish-input');
-  if (!wishInput) return;
+  if (!idInput || !wishInput) return;
   
+  var idText = idInput.value.trim();
   var wishText = wishInput.value.trim();
+  
+  // 双重空值拦截校验
+  if (!idText) {
+    showToast('写个名字或暗号再送出吧');
+    return;
+  }
   if (!wishText) {
-    showToast('请输入内容后再送出哦');
+    showToast('请输入祝福内容后再送出哦');
     return;
   }
   
@@ -730,24 +679,22 @@ document.getElementById('btn-submit').addEventListener('click', function() {
   submitBtn.disabled = true;
   submitBtn.textContent = '正在送出...';
 
-  // 1. 自动计算出该用户的测试结果名称
   var resultType = calcResult(); 
   var resultName = RES[resultType] ? RES[resultType].name : '未知';
 
-  // 2. 构建 Google Form 要求的 Form Data 格式
+  // 三维数据打包
   var formData = new FormData();
-  formData.append(ENTRY_RESULT, resultName);
-  formData.append(ENTRY_WISH, wishText);
+  formData.append(ENTRY_USER_ID, idText);      // 新增：发送人名字
+  formData.append(ENTRY_RESULT, resultName);   // 自动计算的香水结果
+  formData.append(ENTRY_WISH, wishText);       // 祝福语
 
-  // 3. 使用 fetch 异步默默发送到谷歌后台
   fetch(GOOGLE_FORM_URL, {
     method: 'POST',
-    mode: 'no-cors', // 开启无跨域凭证模式，完美绕过 Vercel 线上网址的跨域报错
+    mode: 'no-cors',
     body: formData
   })
   .then(function() {
-    // 成功后，按照你原有的逻辑，跳转到 s-done（已经收到）屏幕
-    show('s-done');
+    show('s-done'); 
   })
   .catch(function(err) {
     showToast('网络有点小脾气，请重试');
