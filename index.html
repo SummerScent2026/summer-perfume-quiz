@@ -373,6 +373,23 @@ html{-webkit-tap-highlight-color:transparent}
   <div class="result" id="result-inner"></div>
 </section>
 
+<!-- THANKS -->
+<section class="screen" id="s-thanks">
+<div class="thanks">
+  <div class="eyebrow" style="margin-bottom:2rem">谢谢你</div>
+  <div class="thanks-prose">
+    <p>这个测试最初的诞生，其实只是因为——<br>夏天快到了，我想认真给重要的人挑一份礼物。</p>
+    <p>后来在写题目的过程中，慢慢发现：<br>其实气味、颜色、温度、光线，<br>真的会组成每个人独一无二的"夏天"。</p>
+    <p>所以最后，它变成了一份关于夏日气味的小测验。</p>
+    <p>谢谢你愿意读到这里。<br>也希望这个夏天，会有某一种气味刚好属于你。</p>
+  </div>
+  <p class="thanks-italic">如果你愿意的话，<br>也欢迎在最后留一句生日祝福给她。</p>
+  <textarea class="wish-input" id="wish-input" placeholder="写下你的祝福…"></textarea>
+  <br>
+  <button class="btn-submit" id="btn-submit">送出 →</button>
+</div>
+</section>
+
 <!-- DONE -->
 <section class="screen" id="s-done">
 <div class="done">
@@ -650,7 +667,8 @@ function renderResult(key){
     '<div class="sec-label">你的夏日随身物</div>'+
     '<div class="items" style="margin-bottom:2.5rem">'+r.items.map(function(it){return'<div class="item"><span class="item-dash">—</span><span>'+it+'</span></div>'}).join('')+'</div>'+
     '<div class="result-actions">'+
-      '<button class="btn-act" id="btn-copy" style="width:100%;">复制结果</button>'+ // 加了 width:100% 让它单按钮撑满撑好看
+      '<button class="btn-act" id="btn-copy">复制结果</button>'+
+      '<button class="btn-act primary" id="btn-tothanks">继续 →</button>'+
     '</div>';
 
   /* --- 绑定按钮交互事件 --- */
@@ -658,6 +676,9 @@ function renderResult(key){
     var txt='【如果你是一支夏日香水】\n我是：'+r.name+'\n'+r.tag+'\n\n关键词：'+r.kws.join(' · ');
     try{navigator.clipboard.writeText(txt)}catch(e){}
     showToast('已复制到剪贴板');
+  });
+  document.getElementById('btn-tothanks').addEventListener('click',function(){
+    show('s-thanks');
   });
 }
 
@@ -688,7 +709,52 @@ document.getElementById('btn-prev').addEventListener('click',function(){if(cur>0
     renderQ(cur);
   }
 });
-document.getElementById('btn-submit').addEventListener('click',function(){show('s-done')});
+/* ==========================================================================
+   新增：Google Forms 祝福与香水结果收集逻辑
+   ========================================================================== */
+var GOOGLE_FORM_URL = 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSfcD8nK9t4pPooUNeAOXmt3e2Rs4GZdMoSAaF2gN70IU_k5mg/formResponse'; // 👈 这里我已经根据你截图里的前缀拼好了，请确保后面这串长ID和你的form action里完全一致
+var ENTRY_RESULT = 'entry.1577313263'; // 对应“香水结果”
+var ENTRY_WISH = 'entry.2128224197';   // 对应“生日祝福”
+
+document.getElementById('btn-submit').addEventListener('click', function() {
+  var wishInput = document.getElementById('wish-input');
+  if (!wishInput) return;
+  
+  var wishText = wishInput.value.trim();
+  if (!wishText) {
+    showToast('请输入内容后再送出哦');
+    return;
+  }
+  
+  var submitBtn = document.getElementById('btn-submit');
+  submitBtn.disabled = true;
+  submitBtn.textContent = '正在送出...';
+
+  // 1. 自动计算出该用户的测试结果名称
+  var resultType = calcResult(); 
+  var resultName = RES[resultType] ? RES[resultType].name : '未知';
+
+  // 2. 构建 Google Form 要求的 Form Data 格式
+  var formData = new FormData();
+  formData.append(ENTRY_RESULT, resultName);
+  formData.append(ENTRY_WISH, wishText);
+
+  // 3. 使用 fetch 异步默默发送到谷歌后台
+  fetch(GOOGLE_FORM_URL, {
+    method: 'POST',
+    mode: 'no-cors', // 开启无跨域凭证模式，完美绕过 Vercel 线上网址的跨域报错
+    body: formData
+  })
+  .then(function() {
+    // 成功后，按照你原有的逻辑，跳转到 s-done（已经收到）屏幕
+    show('s-done');
+  })
+  .catch(function(err) {
+    showToast('网络有点小脾气，请重试');
+    submitBtn.disabled = false;
+    submitBtn.textContent = '送出 →';
+  });
+});
 </script>
 </body>
 </html>
