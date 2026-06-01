@@ -278,13 +278,13 @@ html{-webkit-tap-highlight-color:transparent}
 
 .result-hero-img {
   width: 100%;
-  aspect-ratio: 16 / 10; /* 优雅的宽幅比例 */
-  object-fit: cover;     /* 确保图片自适应裁剪 */
+  aspect-ratio: 16 / 10; 
+  object-fit: cover;    
   border-radius: 4px;    /* 微圆角 */
   margin-bottom: 2rem;   /* 与下方标题的间距 */
   background-color: var(--card-bg-current); /* 骨架屏占位色 */
-  border: 1px solid var(--border-current);  /* 极淡的融合边框 */
-  animation: fu 0.6s cubic-bezier(.4,0,.2,1) both; /* 优雅的淡入动画 */
+  border: 1px solid var(--border-current);  /* 融合边框 */
+  animation: fu 0.6s cubic-bezier(.4,0,.2,1) both; /* 淡入动画 */
 }
 .perfume-card {
   display: flex;
@@ -322,6 +322,49 @@ html{-webkit-tap-highlight-color:transparent}
   line-height: 1.6;
   color: var(--ink-s-current) !important;
   letter-spacing: 0.02em;
+}
+
+/* 🌟 新增：向下滑动视觉提示器 */
+.scroll-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin: -1.5rem auto 2.5rem; /* 紧跟在图片下方，拉开与标题的距离 */
+  opacity: 0.6;
+  animation: s-bounce 2s infinite; /* 循环上下跳动动效 */
+}
+.scroll-text {
+  font-size: 9px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  font-family: var(--ff-sans);
+  color: var(--ink-f-current) !important;
+}
+.scroll-arrow {
+  width: 1px;
+  height: 16px;
+  background: var(--ink-f-current);
+  position: relative;
+}
+.scroll-arrow::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: -2px;
+  width: 5px;
+  height: 5px;
+  border-bottom: 1px solid var(--ink-f-current);
+  border-right: 1px solid var(--ink-f-current);
+  transform: rotate(45deg);
+}
+
+/* 优雅的微跳动动画 */
+@keyframes s-bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(4px); }
+  60% { transform: translateY(2px); }
 }
 
 </style>
@@ -658,21 +701,29 @@ function renderResult(key){
   root.style.setProperty('--card-shadow-current', r.cardShadow);
   
   var el=document.getElementById('result-inner');
+  
   el.innerHTML=
-    // 🌟 将气味意象图置于最顶端
     '<img src="'+r.heroImg+'" class="result-hero-img" alt="Summer Scent Imagery">'+
     
+    // 2. 🌟 紧跟在图片下方的滑动微动效提示器（防止手机屏幕小、用户找不到下文）
+    '<div class="scroll-indicator">'+
+      '<span class="scroll-text">Scroll to explore</span>'+
+      '<div class="scroll-arrow"></div>'+
+    '</div>'+
+    
+    // 3. 基础文案信息
     '<div class="eyebrow" style="margin-bottom:1.2rem;">Your Summer Scent</div>'+
     '<div class="result-name" style="color:'+r.color+';">'+r.name+'</div>'+
     '<div class="result-tag">'+r.tag+'</div>'+
     
-    // 🌟 香水实体卡片
+    // 4. 香水高级实体卡片
     '<div class="perfume-card">'+
       '<div class="pyramid-row"><span class="pyramid-label" style="color:'+r.color+' !important;">Top 前调</span><span class="pyramid-value">'+r.topNotes+'</span></div>'+
       '<div class="pyramid-row"><span class="pyramid-label" style="color:'+r.color+' !important;">Mid 中调</span><span class="pyramid-value">'+r.midNotes+'</span></div>'+
       '<div class="pyramid-row"><span class="pyramid-label" style="color:'+r.color+' !important;">Base 后调</span><span class="pyramid-value">'+r.baseNotes+'</span></div>'+
     '</div>'+
     
+    // 5. 后续深度解析内容保持原样
     '<div class="divider"></div>'+
     '<div class="result-desc">'+r.desc.map(function(p){return'<p>'+p+'</p>'}).join('')+'</div>'+
     '<div class="divider"></div>'+
@@ -688,6 +739,10 @@ function renderResult(key){
       '<button class="btn-act primary" id="btn-tothanks">继续 →</button>'+
     '</div>';
 
+  // 🌟 6. 重新激活初次加载时的“自下而上平移”淡入动画，给用户纵向延伸的视觉趋势暗示
+  el.classList.remove('fade-up'); void el.offsetWidth; el.classList.add('fade-up');
+
+  // 7. 事件监听绑定
   document.getElementById('btn-copy').addEventListener('click',function(){
     var txt='【如果你是一支夏日香水】\n我是：'+r.name+'\n'+r.tag+'\n\n前调：'+r.topNotes+'\n中调：'+r.midNotes+'\n后调：'+r.baseNotes+'\n\n关键词：'+r.kws.join(' · ');
     try{navigator.clipboard.writeText(txt)}catch(e){}
