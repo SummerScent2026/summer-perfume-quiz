@@ -336,9 +336,8 @@ html{-webkit-tap-highlight-color:transparent}
   animation: s-bounce 2s infinite; /* 循环上下跳动动效 */
 }
 .scroll-text {
-  font-size: 9px;
-  letter-spacing: .2em;
-  text-transform: uppercase;
+  font-size: 10px;          
+  letter-spacing: .15em;   
   font-family: var(--ff-sans);
   color: var(--ink-f-current) !important;
 }
@@ -360,7 +359,7 @@ html{-webkit-tap-highlight-color:transparent}
   transform: rotate(45deg);
 }
 
-/* 优雅的微跳动动画 */
+/* 微跳动动画 */
 @keyframes s-bounce {
   0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
   40% { transform: translateY(4px); }
@@ -552,7 +551,6 @@ var RES={
   D:{name:'无花果与旧书页',tag:'木质果香调 · 温柔的大人感',
     color:'#C0A595', bg:'#F4EFEA', font:'#3E3631', sub:'#A8907E', line:'#DDD0C4',
     cardBg:'#FAF7F4', cardBorder:'rgba(192, 165, 149, 0.25)', cardShadow:'rgba(62, 54, 49, 0.05)',
-    // 🌟 路径指向 image 文件夹下的 无花果.jpg
     heroImg: './image/Fig & Old Pages.jpg',
     desc:['你像日落时分，书房中被夕阳大片晒暖的木质书架。','你的话可能不多，内心却有一股很深的温柔。比起短暂、热烈但容易熄灭的刺激，你更偏爱那些能被时间留下来的东西。','你会反复爱上：旧电影、老歌、熟悉的故事、某种陪伴了自己很久的味道。','你给人的感觉，就像是那个可以让人卸下防备、安心靠在旁边睡着的人。'],
     scent:'成熟的无花果、红茶、木质书架，与黄昏时慢慢落下去的光线。',
@@ -706,8 +704,8 @@ function renderResult(key){
     '<img src="'+r.heroImg+'" class="result-hero-img" alt="Summer Scent Imagery">'+
     
     // 2. 🌟 紧跟在图片下方的滑动微动效提示器（防止手机屏幕小、用户找不到下文）
-    '<div class="scroll-indicator">'+
-      '<span class="scroll-text">Scroll to explore</span>'+
+   '<div class="scroll-indicator">'+
+      '<span class="scroll-text">向下查看完整结果</span>'+
       '<div class="scroll-arrow"></div>'+
     '</div>'+
     
@@ -723,7 +721,7 @@ function renderResult(key){
       '<div class="pyramid-row"><span class="pyramid-label" style="color:'+r.color+' !important;">Base 后调</span><span class="pyramid-value">'+r.baseNotes+'</span></div>'+
     '</div>'+
     
-    // 5. 后续深度解析内容保持原样
+    // 5. 深度解析内容
     '<div class="divider"></div>'+
     '<div class="result-desc">'+r.desc.map(function(p){return'<p>'+p+'</p>'}).join('')+'</div>'+
     '<div class="divider"></div>'+
