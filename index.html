@@ -323,6 +323,27 @@ html{-webkit-tap-highlight-color:transparent}
   color: var(--ink-s-current) !important;
   letter-spacing: 0.02em;
 }
+/* 🌟 新增：针对竖图（花市）的专用包裹容器与样式控制 */
+.result-cover {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;       /* 让最上方留出更松弛的呼吸感 */
+  margin-bottom: 3.5rem;  /* 图片下方留出大量的空白，营造大牌官网的艺术留白 */
+}
+
+/* 当页面被标记为包含竖图时，重写图片的排版样式 */
+.is-portrait .result-hero-img {
+  width: 220px;          /* 严格遵照效果图建议的竖图黄金宽度 */
+  height: auto;
+  aspect-ratio: auto;    /* 释放横图的 16/10 限制，还原竖图原本的比例 */
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 0;      /* 间距由外层 .result-cover 控制 */
+  
+  /* 引入效果图中的高级柔和深阴影 */
+  box-shadow: 0 10px 30px rgba(28, 25, 23, 0.08); 
+  border: none;          /* 竖图靠强阴影立起来，可以去掉微弱的细边框 */
+}
 
 </style>
 </head>
@@ -658,15 +679,25 @@ function renderResult(key){
   root.style.setProperty('--card-shadow-current', r.cardShadow);
   
   var el=document.getElementById('result-inner');
+  
+  // 🌟 核心排版判断：如果是 B（花市），注入竖图专用的类名与外层盒子
+  if (key === 'B') {
+    el.className = 'result is-portrait'; // 标记为竖图排版
+    var imgHtml = '<div class="result-cover"><img src="'+r.heroImg+'" class="result-hero-img" alt="Summer Scent Imagery"></div>';
+  } else {
+    el.className = 'result'; // 恢复普通横图排版
+    var imgHtml = '<img src="'+r.heroImg+'" class="result-hero-img" alt="Summer Scent Imagery">';
+  }
+  
   el.innerHTML=
-    // 🌟 将气味意象图置于最顶端
-    '<img src="'+r.heroImg+'" class="result-hero-img" alt="Summer Scent Imagery">'+
+    // 注入处理后的图片 HTML
+    imgHtml +
     
     '<div class="eyebrow" style="margin-bottom:1.2rem;">Your Summer Scent</div>'+
     '<div class="result-name" style="color:'+r.color+';">'+r.name+'</div>'+
     '<div class="result-tag">'+r.tag+'</div>'+
     
-    // 🌟 香水实体卡片
+    // 香水实体卡片形态
     '<div class="perfume-card">'+
       '<div class="pyramid-row"><span class="pyramid-label" style="color:'+r.color+' !important;">Top 前调</span><span class="pyramid-value">'+r.topNotes+'</span></div>'+
       '<div class="pyramid-row"><span class="pyramid-label" style="color:'+r.color+' !important;">Mid 中调</span><span class="pyramid-value">'+r.midNotes+'</span></div>'+
