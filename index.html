@@ -44,11 +44,10 @@ html{-webkit-tap-highlight-color:transparent}
 .cover{padding-top:clamp(48px,14vw,88px);min-height:100dvh;display:flex;flex-direction:column}
 .eyebrow{font-size:10px;letter-spacing:.2em;color:var(--ink-f);text-transform:uppercase;margin-bottom:2rem}
 .cover-title{font-family:var(--ff-serif);font-size:clamp(34px,9.5vw,52px);font-weight:300;line-height:1.3;letter-spacing:.03em;margin-bottom:1rem}
-.cover-sub{font-size:13px;color:var(--ink-m);line-height:2;margin-bottom:clamp(3.5rem,12vw,6rem);font-weight:300;max-width:300px}
-.bottles{display:none} 
-.btn-start{display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:var(--cream);border:none;padding:14px 30px;border-radius:2px;font-size:13px;font-family:var(--ff-sans);font-weight:400;cursor:pointer;letter-spacing:.1em;transition:opacity var(--ease);-webkit-appearance:none}
+.cover-sub{font-family:var(--ff-serif);font-size:clamp(15px,4.2vw,18px);line-height:2;color:var(--ink-s);margin-bottom:clamp(3rem,10vw,4.5rem);font-weight:300}
+.btn-start{display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:var(--cream);border:none;padding:15px 34px;border-radius:2px;font-size:13px;font-family:var(--ff-sans);font-weight:400;cursor:pointer;letter-spacing:.1em;transition:opacity var(--ease);-webkit-appearance:none;width:fit-content}
 .btn-start:active{opacity:.7}
-.cover-foot{margin-top:auto;padding-top:3rem;font-size:11px;color:var(--ink-f);letter-spacing:.07em}
+.cover-foot{margin-top:auto;padding-bottom:28px;font-size:10.5px;letter-spacing:.08em;color:var(--ink-f)}
 
 /* TRANS */
 .trans-page {
@@ -113,7 +112,8 @@ html{-webkit-tap-highlight-color:transparent}
 .quiz-meta{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem}
 .q-part{font-size:10px;letter-spacing:.18em;color:var(--ink-f);text-transform:uppercase}
 .q-count{font-size:11px;color:var(--ink-f);font-feature-settings:"tnum"}
-.progress{height:1px;background:var(--border-s);margin-bottom:2.5rem;position:relative}\n.progress-fill{position:absolute;top:0;left:0;height:100%;background:var(--ink-f);transition:width .5s cubic-bezier(.4,0,.2,1)}
+.progress{height:1px;background:var(--border-s);margin-bottom:2.5rem;position:relative}
+.progress-fill{position:absolute;top:0;left:0;height:100%;background:var(--ink-f);transition:width .5s cubic-bezier(.4,0,.2,1)}
 .q-scene{font-size:10.5px;letter-spacing:.1em;color:var(--ink-f);font-style:italic;font-family:var(--ff-serif);margin-bottom:.5rem}
 .q-text{font-family:var(--ff-serif);font-size:clamp(16px,4.6vw,20px);font-weight:300;line-height:1.75;color:var(--ink);margin-bottom:.4rem}
 .q-note{font-size:10px;letter-spacing:.1em;color:var(--ink-f);margin-bottom:1.8rem;min-height:16px}
@@ -150,7 +150,7 @@ html{-webkit-tap-highlight-color:transparent}
 .result-tag { 
   font-size: 12px;
   letter-spacing: .08em;
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.5rem;
   font-weight: 300;
 }
 .result .sec-label {
@@ -237,7 +237,6 @@ html{-webkit-tap-highlight-color:transparent}
 .thanks-prose p{margin-bottom:1.2rem}
 .thanks-italic{font-family:var(--ff-serif);font-style:italic;color:var(--ink-m);font-size:13px;line-height:2;margin-bottom:1.5rem;font-weight:300}
 
-/* 新增：单行ID输入框样式 */
 .id-input{width:100%;padding:12px 16px;border:1px solid var(--border);border-radius:2px;background:transparent;font-size:14px;font-family:var(--ff-serif);color:var(--ink);font-weight:300;outline:none;margin-bottom:1rem;-webkit-appearance:none;appearance:none;transition:border-color var(--ease)}
 .id-input::placeholder{color:var(--ink-f)}
 .id-input:focus{border-color:var(--ink-s)}
@@ -263,7 +262,8 @@ html{-webkit-tap-highlight-color:transparent}
 .result-tag { color: var(--ink-m-current) !important; }
 .result-desc { color: var(--ink-s-current) !important; }
 .scent-quote { color: var(--ink-m-current) !important; border-left-color: var(--border-current) !important; }
-.kw { color: var(--ink-m-current) !important; border-color: var(--border-current) !important; }\n.item { color: var(--ink-m-current) !important; }
+.kw { color: var(--ink-m-current) !important; border-color: var(--border-current) !important;}
+.item { color: var(--ink-m-current) !important; }
 .item-dash { color: var(--ink-f-current) !important; }
 .btn-act { color: var(--ink-m-current) !important; border-color: var(--border-current) !important; }
 .btn-act.primary { background: var(--ink-current) !important; color: var(--bg-current) !important; }
@@ -275,6 +275,55 @@ html{-webkit-tap-highlight-color:transparent}
   border-color: #1C1917 !important;
   background: rgba(28,25,23,.03) !important;
 }
+
+.result-hero-img {
+  width: 100%;
+  aspect-ratio: 16 / 10; /* 优雅的宽幅比例 */
+  object-fit: cover;     /* 确保图片自适应裁剪 */
+  border-radius: 4px;    /* 微圆角 */
+  margin-bottom: 2rem;   /* 与下方标题的间距 */
+  background-color: var(--card-bg-current); /* 骨架屏占位色 */
+  border: 1px solid var(--border-current);  /* 极淡的融合边框 */
+  animation: fu 0.6s cubic-bezier(.4,0,.2,1) both; /* 优雅的淡入动画 */
+}
+.perfume-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 1.75rem;
+  margin-bottom: 0.75rem;
+  padding: 24px 20px;
+  background: var(--card-bg-current, #FFFFFF) !important;
+  border: 1px solid var(--card-border-current, var(--border-current)) !important;
+  border-radius: 6px;
+  box-shadow: 
+    0 6px 24px -4px var(--card-shadow-current, rgba(28, 25, 23, 0.04)),
+    0 2px 8px -2px var(--card-shadow-current, rgba(28, 25, 23, 0.02));
+  animation: fu 0.6s cubic-bezier(.4,0,.2,1) both;
+}
+.pyramid-row {
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
+}
+.pyramid-label {
+  font-size: 10px;
+  font-family: var(--ff-sans);
+  font-weight: 500;
+  letter-spacing: .15em;
+  color: var(--ink-f-current) !important;
+  min-width: 65px;
+  flex-shrink: 0;
+  text-transform: uppercase;
+}
+.pyramid-value {
+  font-family: var(--ff-serif);
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--ink-s-current) !important;
+  letter-spacing: 0.02em;
+}
+
 </style>
 </head>
 <body>
@@ -432,26 +481,39 @@ var QS=[
 var RES={
   A:{name:'第一班轮渡',tag:'海洋水生调 · 清晨五点的海岸',
     color:'#2E86C1', bg:'#EDF5FB', font:'#154360', sub:'#5A8FA8', line:'#B8D4E8',
+    cardBg:'#F5FAFE', cardBorder:'rgba(46, 134, 193, 0.15)', cardShadow:'rgba(21, 67, 96, 0.05)',
+    heroImg: './image/Dawn Ferry.jpg', 
     desc:['你像夏天里最先醒来的那阵风。','很多时候，人们会被你身上的"清醒"所吸引——你好像永远有自己的节奏，不轻易被周围的声音裹挟。','你喜欢开阔的视野、流通的空气，以及一切留有空隙的东西。比起"冷淡"，这更像是你太容易共情别人的情绪，所以必须用距离来保护自己内心的清净。','比起热闹，你更偏爱：风、海面、耳机里的音乐，和那些可以让人暂时逃离现实的空白时刻。'],
     scent:'海水、薄荷、清晨未散的雾气，与指尖拂过冰凉石阶时的清冽。',
+    topNotes: '海水、柠檬、薄荷', midNotes: '鼠尾草、橡木苔', baseNotes: '雪松、白麝香、龙涎香',
     kws:['海风','耳机','冰块','清晨','自由感','透明空气'],
     items:['一只浅蓝色渐变透明运动水杯','降噪耳机','薄荷味润唇膏','冷色系运动外套']},
   B:{name:'下午三点的花市',tag:'花果气泡调 · 元气甜感热闹鲜活',
     color:'#F0C4B7', bg:'#FAF5F2', font:'#4A3B32', sub:'#E8A898', line:'#F5D8CC',
-    desc:['你像一瓶刚刚拉开拉环的夏日汽水。','你的存在感并不锋利，却总能让周围的空气一起变得轻快起来。你喜欢鲜活的人、明亮的情绪，以及"今天会发生点什么"的惊喜感。','你很会感知快乐。一束花、一杯果茶、一句随口的玩笑，都足够让你重新恢复能量。','降低站在远处安静地看世界，你更喜欢：真正扑进生活里，沾一身烟火气。'],
+    cardBg:'#FFFBF9', cardBorder:'rgba(240, 196, 183, 0.25)', cardShadow:'rgba(74, 59, 50, 0.04)',
+    heroImg: './image/Flower Market, 3 PM.jpg',
+    desc:['你像一瓶刚刚拉开拉环的夏日汽水。','你的存在感并不锋利，却总能让周围的空气一起变得轻快起来。你喜欢鲜活的人、明亮的情绪，以及"今天会发生点什么"的惊喜感。','你很会感知快乐。一束花、一杯果茶、一句随口的玩笑，都足够让你重新恢复能量。','相比站在远处安静地看世界，你更喜欢：真正扑进生活里，沾一身烟火气。'],
     scent:'荔枝、葡萄柚、盛开的花朵，与被太阳晒得暖洋洋的甜味空气。',
+    topNotes: '荔枝、气泡、葡萄柚', midNotes: '玫瑰、茉莉、青绿晚香玉、薄荷、仙客来醛', baseNotes: '香草、麝香、琥珀',
     kws:['晚霞','果汁汽水','热闹','花店','笑声','生命力'],
     items:['一只粉色透明渐变运动水杯','挂着水珠的睡莲','拍立得','会反光的耳饰或发夹']},
   C:{name:'晴空与白衬衫',tag:'白茶皂感调 · 洗净阳光下的白衬衫',
     color:'#90C9E8', bg:'#F4F8FA', font:'#5A7D8F', sub:'#8AAABB', line:'#D8E8F0',
-    desc:['你像雨停之后，窗户被重新打开的那个瞬间。','你身上有一种很舒服的"留白感"。不吵闹，也不刻意去吸引谁，但只要靠近你，周围就会慢慢安静下来。','你喜欢干净的气味、整洁的空间，以及一切"刚刚好"的状态。你对秩序의执着，其实是因为你很珍惜自己的精力——你不想把时间浪费在无意义的内耗上。','很多时候，你真正需要的不是热烈的情绪，而是窗帘飘动、阳光落进房间，以及终于可以松一口气的松弛时刻。'],
+    cardBg:'#F9FBFD', cardBorder:'rgba(144, 201, 232, 0.2)', cardShadow:'rgba(90, 125, 143, 0.04)',
+    heroImg: './image/Clear Sky & White Linen.jpg',
+    desc:['你像雨停之后，窗户被重新打开的那个瞬间。','你身上有一种很舒服的"留白感"。不吵闹，也不刻意去吸引谁，但只要靠近你，周围就会慢慢安静下来。','你喜欢干净的气味、整洁的空间，以及一切"刚刚好"的状态。你对秩序的执着，其实是因为你很珍惜自己的精力——你不想把时间浪费在无意义的内耗上。','很多时候，你真正需要的不是热烈的情绪，而是窗帘飘动、阳光落进房间，以及终于可以松一口气的松弛时刻。'],
     scent:'白茶、洗净的棉布、微风，与刚从晾衣绳上取下的白衬衫。',
+    topNotes: '佛手柑、绿茶、青草', midNotes: '白茶、铃兰、橙花', baseNotes: '雪松、白麝香、淡琥珀、鸢尾',
     kws:['白衬衫','冷泡茶','阳光','窗边','洁净感','低饱和度'],
     items:['一只浅绿色透明运动水杯','干净的棉布手帕','冷泡茉莉绿茶','无香面巾纸']},
   D:{name:'无花果与旧书页',tag:'木质果香调 · 温柔的大人感',
     color:'#C0A595', bg:'#F4EFEA', font:'#3E3631', sub:'#A8907E', line:'#DDD0C4',
+    cardBg:'#FAF7F4', cardBorder:'rgba(192, 165, 149, 0.25)', cardShadow:'rgba(62, 54, 49, 0.05)',
+    // 🌟 路径指向 image 文件夹下的 无花果.jpg
+    heroImg: './image/Fig & Old Pages.jpg',
     desc:['你像日落时分，书房中被夕阳大片晒暖的木质书架。','你的话可能不多，内心却有一股很深的温柔。比起短暂、热烈但容易熄灭的刺激，你更偏爱那些能被时间留下来的东西。','你会反复爱上：旧电影、老歌、熟悉的故事、某种陪伴了自己很久的味道。','你给人的感觉，就像是那个可以让人卸下防备、安心靠在旁边睡着的人。'],
     scent:'成熟的无花果、红茶、木质书架，与黄昏时慢慢落下去的光线。',
+    topNotes: '无花果、梨、佛手柑、椰子', midNotes: '鸢尾、甘草、红茶', baseNotes: '檀木、愈创木、琥珀',
     kws:['旧书页','黄昏','木质香','草地','慢节奏','安全感'],
     items:['一只粉棕色透明渐变运动水杯','一本翻了很多遍的旧书','表面微微磨损的皮质钥匙扣','亚麻或针织材质的外套']},
 };
@@ -499,7 +561,6 @@ function checkAndShowIntro(i, callback) {
   return false;
 }
 
-// “保持ABCD顺序不变，文本内容随机打乱”机制
 function initShuffledQuiz() {
   var keys = ['A', 'B', 'C', 'D'];
   for (var i = 0; i < QS.length; i++) {
@@ -592,11 +653,26 @@ function renderResult(key){
   root.style.setProperty('--ink-f-current', r.sub);
   root.style.setProperty('--border-current', r.line);
   
+  root.style.setProperty('--card-bg-current', r.cardBg);
+  root.style.setProperty('--card-border-current', r.cardBorder);
+  root.style.setProperty('--card-shadow-current', r.cardShadow);
+  
   var el=document.getElementById('result-inner');
   el.innerHTML=
+    // 🌟 将气味意象图置于最顶端
+    '<img src="'+r.heroImg+'" class="result-hero-img" alt="Summer Scent Imagery">'+
+    
     '<div class="eyebrow" style="margin-bottom:1.2rem;">Your Summer Scent</div>'+
     '<div class="result-name" style="color:'+r.color+';">'+r.name+'</div>'+
     '<div class="result-tag">'+r.tag+'</div>'+
+    
+    // 🌟 香水实体卡片
+    '<div class="perfume-card">'+
+      '<div class="pyramid-row"><span class="pyramid-label" style="color:'+r.color+' !important;">Top 前调</span><span class="pyramid-value">'+r.topNotes+'</span></div>'+
+      '<div class="pyramid-row"><span class="pyramid-label" style="color:'+r.color+' !important;">Mid 中调</span><span class="pyramid-value">'+r.midNotes+'</span></div>'+
+      '<div class="pyramid-row"><span class="pyramid-label" style="color:'+r.color+' !important;">Base 后调</span><span class="pyramid-value">'+r.baseNotes+'</span></div>'+
+    '</div>'+
+    
     '<div class="divider"></div>'+
     '<div class="result-desc">'+r.desc.map(function(p){return'<p>'+p+'</p>'}).join('')+'</div>'+
     '<div class="divider"></div>'+
@@ -613,7 +689,7 @@ function renderResult(key){
     '</div>';
 
   document.getElementById('btn-copy').addEventListener('click',function(){
-    var txt='【如果你是一支夏日香水】\n我是：'+r.name+'\n'+r.tag+'\n\n关键词：'+r.kws.join(' · ');
+    var txt='【如果你是一支夏日香水】\n我是：'+r.name+'\n'+r.tag+'\n\n前调：'+r.topNotes+'\n中调：'+r.midNotes+'\n后调：'+r.baseNotes+'\n\n关键词：'+r.kws.join(' · ');
     try{navigator.clipboard.writeText(txt)}catch(e){}
     showToast('已复制到剪贴板');
   });
@@ -652,7 +728,7 @@ document.getElementById('btn-prev').addEventListener('click',function(){if(cur>0
 var GOOGLE_FORM_URL = 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSfcD8nK9t4pPooUNeAOXmt3e2Rs4GZdMoSAaF2gN70IU_k5mg/formResponse';
 var ENTRY_USER_ID = 'entry.1476513074'; 
 var ENTRY_RESULT  = 'entry.1577313263'; 
-var ENTRY_WISH    = 'entry.2128224197';   
+var ENTRY_WISH    = 'entry.2128224197'; 
 
 document.getElementById('btn-submit').addEventListener('click', function() {
   var idInput = document.getElementById('id-input');
@@ -662,15 +738,8 @@ document.getElementById('btn-submit').addEventListener('click', function() {
   var idText = idInput.value.trim();
   var wishText = wishInput.value.trim();
   
-  // 双重空值拦截校验
-  if (!idText) {
-    showToast('写个名字或暗号再送出吧');
-    return;
-  }
-  if (!wishText) {
-    showToast('请输入祝福内容后再送出哦');
-    return;
-  }
+  if (!idText) { showToast('写个名字或暗号再送出吧'); return; }
+  if (!wishText) { showToast('请输入祝福内容后再送出哦'); return; }
   
   var submitBtn = document.getElementById('btn-submit');
   submitBtn.disabled = true;
@@ -679,11 +748,10 @@ document.getElementById('btn-submit').addEventListener('click', function() {
   var resultType = calcResult(); 
   var resultName = RES[resultType] ? RES[resultType].name : '未知';
 
-  // 三维数据打包
   var formData = new FormData();
-  formData.append(ENTRY_USER_ID, idText);      // 新增：发送人名字
-  formData.append(ENTRY_RESULT, resultName);   // 自动计算的香水结果
-  formData.append(ENTRY_WISH, wishText);       // 祝福语
+  formData.append(ENTRY_USER_ID, idText);      
+  formData.append(ENTRY_RESULT, resultName);   
+  formData.append(ENTRY_WISH, wishText);       
 
   fetch(GOOGLE_FORM_URL, {
     method: 'POST',
